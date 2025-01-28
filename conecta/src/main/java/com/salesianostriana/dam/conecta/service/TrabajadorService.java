@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.conecta.service;
 
+import com.salesianostriana.dam.conecta.dtos.EditTrabajadorDto;
 import com.salesianostriana.dam.conecta.model.Trabajador;
 import com.salesianostriana.dam.conecta.repository.TrabajadorRepo;
 import jakarta.persistence.Entity;
@@ -32,26 +33,26 @@ public class TrabajadorService {
         return trabajadorOpt.get();
     }
 
-    public Trabajador save(Trabajador t) {
+    public Trabajador save(EditTrabajadorDto dto) {
         return trabajadorRepo.save(Trabajador.builder()
-                .nombre(t.getNombre())
-                .apellidos(t.getApellidos())
-                .email(t.getEmail())
-                .telefono(t.getTelefono())
-                .puesto(t.getPuesto())
-                .area(t.getArea())
+                .nombre(dto.nombre())
+                .apellidos(dto.apellidos())
+                .email(dto.email())
+                .telefono(dto.telefono())
+                .puesto(dto.puesto())
+                .area(dto.area())
                 .build());
     }
 
-    public Trabajador edit(Trabajador t, Long id) {
+    public Trabajador edit(EditTrabajadorDto dto, Long id) {
         return trabajadorRepo.findById(id)
                 .map(old -> {
-                    old.setNombre(t.getNombre());
-                    old.setApellidos(t.getApellidos());
-                    old.setEmail(t.getEmail());
-                    old.setTelefono(t.getTelefono());
-                    old.setPuesto(t.getPuesto());
-                    old.setArea(t.getArea());
+                    old.setNombre(dto.nombre());
+                    old.setApellidos(dto.apellidos());
+                    old.setEmail(dto.email());
+                    old.setTelefono(dto.telefono());
+                    old.setPuesto(dto.puesto());
+                    old.setArea(dto.area());
                     return trabajadorRepo.save(old);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el trabajador con el id " + id));

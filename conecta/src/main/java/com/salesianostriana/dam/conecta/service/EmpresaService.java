@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.conecta.service;
 
+import com.salesianostriana.dam.conecta.dtos.EditEmpresaDto;
 import com.salesianostriana.dam.conecta.model.Empresa;
 import com.salesianostriana.dam.conecta.model.Empresa;
 import com.salesianostriana.dam.conecta.repository.EmpresaRepo;
@@ -32,22 +33,22 @@ public class EmpresaService {
         return EmpresaOpt.get();
     }
 
-    public Empresa save(Empresa e) {
+    public Empresa save(EditEmpresaDto dto) {
         return empresaRepo.save(Empresa.builder()
-                .cif(e.getCif())
-                .direccion(e.getDireccion())
-                .coordenadas(e.getCoordenadas())
-                .nombre(e.getNombre())
+                .cif(dto.cif())
+                .direccion(dto.direccion())
+                .coordenadas(dto.coordenadas())
+                .nombre(dto.nombre())
                 .build());
     }
 
-    public Empresa edit(Empresa e, Long id) {
+    public Empresa edit(EditEmpresaDto dto, Long id) {
         return empresaRepo.findById(id)
                 .map(old -> {
-                    e.setCif(old.getCif());
-                    e.setDireccion(old.getDireccion());
-                    e.setCoordenadas(old.getCoordenadas());
-                    e.setNombre(old.getNombre());
+                    old.setCif(dto.cif());
+                    old.setDireccion(old.getDireccion());
+                    old.setCoordenadas(old.getCoordenadas());
+                    old.setNombre(old.getNombre());
                     return empresaRepo.save(old);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró la empresa con el id " + id));
