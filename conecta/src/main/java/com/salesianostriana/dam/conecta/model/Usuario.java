@@ -1,47 +1,47 @@
 package com.salesianostriana.dam.conecta.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+
+import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Objects;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @ToString
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-@SuperBuilder
-@MappedSuperclass
-public abstract class Persona {
-
+@AllArgsConstructor
+@Table(name="usuarios")
+public class Usuario {
+    //Atributos de la clase USUARIO
     @Id
     @GeneratedValue
     private Long id;
 
-    private String nombre;
-    private String apellidos;
-    private String email;
-    private String telefono;
+    private String password;
+    private String username;
+    private String role;
 
+    //Asociación USUARIO_PROFESOR
+
+
+    //Equals and hasCode
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Persona persona = (Persona) o;
-        return getId() != null && Objects.equals(getId(), persona.getId());
+        Usuario usuario = (Usuario) o;
+        return getId() != null && Objects.equals(getId(), usuario.getId());
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
 }
