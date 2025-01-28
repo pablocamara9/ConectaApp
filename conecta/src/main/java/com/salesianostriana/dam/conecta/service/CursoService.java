@@ -27,6 +27,7 @@ public class CursoService {
         }
         return cursos;
     }
+
     //Buscar por id CURSOS
     public Curso findCursoById(Long id) {
         Optional<Curso> cursosOp= cursoR.findById(id);
@@ -35,8 +36,26 @@ public class CursoService {
         }
         return cursosOp.get();
     }
+
+    //Guardamos el curso usando el Dto
     public Curso saveCurso(EditCursoDto cursdto) {
         return cursoR.save(Curso.builder()
                 .nombre(cursdto.nombre()).horasEmpresa(cursdto.horasEmpresa()).build());
+    }
+
+    //Editar curso usando el dto
+    public Curso editarCurso(Long id, EditCursoDto cursdto) {
+        Optional<Curso> cursosOp= cursoR.findById(id);
+        if(cursosOp.isEmpty()){
+            throw new EntityNotFoundException("No se han encontrado cursos con ese id ");
+        }
+        cursosOp.get().setNombre(cursdto.nombre());
+        cursosOp.get().setHorasEmpresa(cursdto.horasEmpresa());
+        return cursoR.save(cursosOp.get());
+    }
+    
+    //Eliminar curso
+    public void deleteCurso(Long id) {
+        cursoR.deleteById(id);
     }
 }
