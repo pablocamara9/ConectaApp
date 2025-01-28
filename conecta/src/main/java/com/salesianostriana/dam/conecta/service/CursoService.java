@@ -17,7 +17,6 @@ public class CursoService {
 
     //Repositorios utilizados en el servicio
     private CursoRepo cursoR;
-    private ProfesorRepo profesorR;
 
 
     public List<Curso> findAllCursos() {
@@ -53,7 +52,7 @@ public class CursoService {
         cursosOp.get().setHorasEmpresa(cursdto.horasEmpresa());
         return cursoR.save(cursosOp.get());
     }
-    
+
     //Eliminar curso
     public void deleteCurso(Long id) {
         cursoR.deleteById(id);
