@@ -34,6 +34,17 @@ public class Profesor extends Persona{
     @Builder.Default
     private Set<Curso> cursos = new HashSet<>();
 
+    //Métodos helpers PROFESOR-Curso
+    public void addCurso(Curso curso) {
+        this.cursos.add(curso);
+        curso.getProfesores().add(this);
+    }
+    public void removeCurso(Curso curso) {
+        this.cursos.remove(curso);
+        curso.getProfesores().remove(this);
+
+    }
+
     //Equals & hasCode
     @Override
     public final boolean equals(Object o) {
