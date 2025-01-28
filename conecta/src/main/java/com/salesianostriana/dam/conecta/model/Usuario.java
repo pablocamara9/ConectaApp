@@ -26,7 +26,8 @@ public class Usuario {
     private String role;
 
     //Asociación USUARIO_PROFESOR
-
+    @OneToOne(mappedBy = "usuario")
+    private Profesor profesor;
 
     //Equals and hasCode
     @Override

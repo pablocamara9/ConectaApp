@@ -1,13 +1,12 @@
 package com.salesianostriana.dam.conecta.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -29,7 +28,11 @@ public class Curso {
 
 
     //Asociación CURSOS-PROFESOR
-
+    @ManyToMany(mappedBy = "cursos", fetch = FetchType.EAGER)
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Profesor> profesores = new HashSet<>();
 
 
     //Equals & hasCode
