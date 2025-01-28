@@ -32,22 +32,25 @@ public class EmpresaService {
         return EmpresaOpt.get();
     }
 
-    public Empresa save(Empresa t) {
+    public Empresa save(Empresa e) {
         return empresaRepo.save(Empresa.builder()
-                .cif(t.getCif())
-                .direccion(t.getDireccion())
-                .coordenadas(t.getCoordenadas())
-                .nombre(t.getNombre())
+                .cif(e.getCif())
+                .direccion(e.getDireccion())
+                .coordenadas(e.getCoordenadas())
+                .nombre(e.getNombre())
                 .build());
     }
 
-    public Empresa edit(Empresa t, Long id) {
+    public Empresa edit(Empresa e, Long id) {
         return empresaRepo.findById(id)
                 .map(old -> {
-
+                    e.setCif(old.getCif());
+                    e.setDireccion(old.getDireccion());
+                    e.setCoordenadas(old.getCoordenadas());
+                    e.setNombre(old.getNombre());
                     return empresaRepo.save(old);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("No se encontró el Empresa con el id " + id));
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró la empresa con el id " + id));
     }
 
     public void delete(Long id) {
