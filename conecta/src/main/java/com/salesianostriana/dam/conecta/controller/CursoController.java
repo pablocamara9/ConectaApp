@@ -7,7 +7,9 @@ import com.salesianostriana.dam.conecta.model.Curso;
 import com.salesianostriana.dam.conecta.model.Profesor;
 import com.salesianostriana.dam.conecta.service.CursoService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -15,10 +17,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/curso/")
@@ -43,5 +44,33 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(cursoService.saveCurso(nuevo));
     }
+    @Operation(summary = "Obtiene todas los cursos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado cursos",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = EditCursoDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                {"nombre":"1 DAM", "horasEmpresa":"60" }
+                                                {"nombre":"2 DAM", "horasEmpresa":"160" }
+                                            ]
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado cursos",
+                    content = @Content)
+    })
+    @GetMapping
+    public List<EditCursoDto> getAll() {
+        return cursoService.findAllCursos()
+                .stream()
+                .map(EditCursoDto::of)
+                .toList();
+    }
+
+
 
 }
