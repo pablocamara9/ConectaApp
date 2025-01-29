@@ -83,11 +83,25 @@ public class ProfesorController {
                     description = "No se ha encontrado el profesor con el ID proporcionado",
                     content = @Content)
     })
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public Profesor getById(@PathVariable Long id) {
         return profesorService.findProfesorById(id);
     }
 
+    @Operation(summary = "Elimina un profesor por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Profesor eliminado con éxito",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el profesor con el ID proporcionado",
+                    content = @Content)
+    })
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        profesorService.deleteProfesor(id);
+        return ResponseEntity.noContent().build();
+    }
     }
 
 
