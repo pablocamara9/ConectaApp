@@ -15,7 +15,7 @@ import java.util.Optional;
 public class ProfesorService {
 
     //Repositorios utilizados en el servicio
-    private ProfesorRepo repo;
+    private final  ProfesorRepo repo;
 
     //Buscar todos los profesores
     public List<Profesor> findallProfesores() {
