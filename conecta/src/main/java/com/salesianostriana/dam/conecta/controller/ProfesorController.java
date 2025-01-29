@@ -47,7 +47,7 @@ public class ProfesorController {
     @Operation(summary = "Obtiene todos los porfesores")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Se han encontrado las profesores",
+                    description = "Se han encontrado los profesores",
                     content = { @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = Profesor.class)),
                             examples = {@ExampleObject(
@@ -71,6 +71,21 @@ public class ProfesorController {
     @GetMapping
     public List<Profesor> getAll() {
         return profesorService.findallProfesores();
+    }
+
+    @Operation(summary = "Obtiene un profesor por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado el profesor",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Profesor.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el profesor con el ID proporcionado",
+                    content = @Content)
+    })
+    @GetMapping("/{id}")
+    public Profesor getById(@PathVariable Long id) {
+        return profesorService.findProfesorById(id);
     }
 
     }
