@@ -87,6 +87,19 @@ public class CursoController {
         return cursoService.findCursoById(id);
     }
 
-
+    @Operation(summary = "Elimina una curso por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Curso eliminada con éxito",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado un curso con el ID proporcionado",
+                    content = @Content)
+    })
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        cursoService.deleteCurso(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }
