@@ -16,7 +16,7 @@ import java.util.Optional;
 public class CursoService {
 
     //Repositorios utilizados en el servicio
-    private CursoRepo cursoR;
+    private final CursoRepo cursoR;
 
 
     public List<Curso> findAllCursos() {
