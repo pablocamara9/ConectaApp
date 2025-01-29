@@ -102,6 +102,25 @@ public class ProfesorController {
         profesorService.deleteProfesor(id);
         return ResponseEntity.noContent().build();
     }
+
+
+    @Operation(summary = "Edita un profesor existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Profesor actualizada con éxito",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Profesor.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el profesor  con el ID proporcionado",
+                    content = @Content)
+    })
+    @PutMapping("{id}")
+    public Profesor edit(@RequestBody EditProfesorDto editDto,
+                         @PathVariable Long id) {
+        return profesorService.editProfesor(editDto, id );
     }
+
+
+}
 
 
