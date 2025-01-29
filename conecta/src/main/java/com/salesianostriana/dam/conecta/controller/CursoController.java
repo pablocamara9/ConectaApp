@@ -72,5 +72,21 @@ public class CursoController {
     }
 
 
+    @Operation(summary = "Obtiene un curso por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado el curso",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Curso.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el curso con el ID proporcionado",
+                    content = @Content)
+    })
+    @GetMapping("{id}")
+    public Curso getCursoById(@PathVariable Long id) {
+        return cursoService.findCursoById(id);
+    }
+
+
 
 }
