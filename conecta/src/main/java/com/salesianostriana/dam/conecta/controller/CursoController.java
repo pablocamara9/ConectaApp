@@ -102,4 +102,19 @@ public class CursoController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Edita una curso existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "curso actualizado con éxito",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Curso.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado la Curso con el ID proporcionado",
+                    content = @Content)
+    })
+    @PutMapping("{id}")
+    public Curso edit(@RequestBody EditCursoDto aEditar, @PathVariable Long id) {
+        return cursoService.editarCurso(id,aEditar);
+    }
 }
+
