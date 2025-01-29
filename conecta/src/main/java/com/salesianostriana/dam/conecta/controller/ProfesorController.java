@@ -33,7 +33,7 @@ public class ProfesorController {
                     content = { @Content(mediaType = "application/json",
                         schema = @Schema(implementation = Profesor.class))}),
                 @ApiResponse(responseCode = "400",
-            description = "Datos inválidos para crear la estación",
+            description = "Datos inválidos para crear un profesor",
         content = @Content)
     })
 @PostMapping
