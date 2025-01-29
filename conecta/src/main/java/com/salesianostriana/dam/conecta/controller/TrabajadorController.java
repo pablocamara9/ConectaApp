@@ -6,10 +6,9 @@ import com.salesianostriana.dam.conecta.service.TrabajadorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,6 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class TrabajadorController {
 
     private final TrabajadorService trabajadorService;
+
+    @GetMapping
+    public List<Trabajador> getAll() {
+        return trabajadorService.findAll();
+    }
 
     @PostMapping
     public ResponseEntity<Trabajador> addTrabajador(@RequestBody EditTrabajadorDto trabajador) {
