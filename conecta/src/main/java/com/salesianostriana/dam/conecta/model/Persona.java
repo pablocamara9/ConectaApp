@@ -17,7 +17,6 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@MappedSuperclass
 public abstract class Persona {
 
     @Id

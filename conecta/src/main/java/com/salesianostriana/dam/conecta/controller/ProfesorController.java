@@ -19,7 +19,7 @@ public class ProfesorController {
 
     private final ProfesorService profesorService;
 
-    /*DOCUMENTACION SWAGGER(FALTAN PROPIEDADESPARA USARLAS
+    /*DOCUMENTACION SWAGGER(FALTAN PROPIEDADES PARA USARLAS
     *
     * @Operation(summary = "Crea un nuevo profesor")
     * @ApiResponses(value = {
