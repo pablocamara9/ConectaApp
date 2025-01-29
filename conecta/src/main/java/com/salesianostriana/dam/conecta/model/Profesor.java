@@ -12,6 +12,7 @@ import java.util.*;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @SuperBuilder
+@MappedSuperclass
 @Entity
 public class Profesor extends Persona{
 
@@ -29,19 +30,19 @@ public class Profesor extends Persona{
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable( name = "esDocenteEn",
     joinColumns = @JoinColumn(name = "profesor_id"),
-    inverseJoinColumns = @JoinColumn(name = "curso_id"))
+    inverseJoinColumns = @JoinColumn(name = "curso_id"),
+    foreignKey = @ForeignKey(name = "fk_profesor_es_docente_curso"),
+    inverseForeignKey = @ForeignKey(name = "fk_curso_es_docente_profesor"))
     @Builder.Default
-    private Set<Curso> cursos = new HashSet<>();
+    private Set<Curso> classes = new HashSet<>();
 
-    //Métodos helpers PROFESOR-Curso
+    //Métodos helpers PROFESOR-CURSO
     public void addCurso(Curso curso) {
-        this.cursos.add(curso);
-        curso.getProfesores().add(this);
+        this.classes.add(curso);
+        curso.getTeachers().add(this);
     }
     public void removeCurso(Curso curso) {
-        this.cursos.remove(curso);
-        curso.getProfesores().remove(this);
-
+        this.classes.remove(curso);
     }
 
     //Equals & HasCode

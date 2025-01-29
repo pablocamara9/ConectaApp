@@ -1,19 +1,41 @@
-//Aqui meteremos los datos de prueba para probar la rama
--- Insertar cursos (con generación de ID automática)
-INSERT INTO curso (id, nombre, horas_empresa) VALUES
-(nextval('curso_seq'), 'Desarrollo Web', 200),
-(nextval('curso_seq'), 'Programación en Java', 250),
-(nextval('curso_seq'), 'Ciberseguridad', 180);
 
--- Insertar profesores en la tabla "persona" (usando la secuencia)
-INSERT INTO persona (id, dtype, nombre, apellidos, email, telefono) VALUES
-(nextval('persona_seq'), 'Profesor', 'Juan', 'Pérez', 'juan@educacion.com', '600123456'),
-(nextval('persona_seq'), 'Profesor', 'Ana', 'López', 'ana@educacion.com', '600654321');
 
--- Insertar relación muchos a muchos (profesor - curso)
-INSERT INTO esdocenteen (profesor_id, curso_id)
-SELECT p.id, c.id FROM persona p, curso c
-WHERE (p.nombre = 'Juan' AND c.nombre = 'Desarrollo Web')
-   OR (p.nombre = 'Juan' AND c.nombre = 'Programación en Java')
-   OR (p.nombre = 'Ana' AND c.nombre = 'Programación en Java')
-   OR (p.nombre = 'Ana' AND c.nombre = 'Ciberseguridad');
+INSERT INTO profesor (id, nombre, apellidos, email, telefono)
+VALUES (nextval('profesor_seq'), 'Juan', 'Pérez', 'juan.perez@email.com', '600123456');
+
+INSERT INTO persona (id, nombre, apellidos, email, telefono)
+VALUES (nextval('profesor_seq'), 'María', 'Gómez', 'maria.gomez@email.com', '600987654');
+
+INSERT INTO persona (id, nombre, apellidos, email, telefono)
+VALUES (nextval('profesor_seq'), 'Carlos', 'Lopez', 'carlos.lopez@email.com', '600456789');
+
+INSERT INTO persona (id, nombre, apellidos, email, telefono)
+VALUES (nextval('profesor_seq'), 'Ana', 'Rodríguez', 'ana.rodriguez@email.com', '600345678');
+
+
+INSERT INTO curso (id, nombre, horas_empresa)
+VALUES (nextval('curso_seq'), 'Curso de Programación Java', 50);
+
+INSERT INTO curso (id, nombre, horas_empresa)
+VALUES (nextval('curso_seq'), 'Curso de Desarrollo Web Full Stack', 60);
+
+INSERT INTO curso (id, nombre, horas_empresa)
+VALUES (nextval('curso_seq'), 'Curso de Bases de Datos Relacionales', 40);
+
+INSERT INTO curso (id, nombre, horas_empresa)
+VALUES (nextval('curso_seq'), 'Curso de Gestión de Proyectos Ágiles', 45);
+
+
+
+INSERT INTO esDocenteEn (profesor_id, curso_id)
+VALUES (currval('profesor_seq'), currval('curso_seq'));
+
+INSERT INTO esDocenteEn (profesor_id, curso_id)
+VALUES (currval('profesor_seq'), currval('curso_seq'));
+
+INSERT INTO esDocenteEn (profesor_id, curso_id)
+VALUES (currval('profesor_seq'), currval('curso_seq'));
+
+INSERT INTO esDocenteEn (profesor_id, curso_id) VALUES (currval('profesor_seq'), currval('curso_seq'));
+
+INSERT INTO esDocenteEn (profesor_id, curso_id) VALUES (currval('profesor_seq'), currval('curso_seq'));

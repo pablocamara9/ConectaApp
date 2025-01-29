@@ -44,7 +44,7 @@ public class ProfesorController {
 
 
 
-    @Operation(summary = "Obtiene todos los porfesores")
+    @Operation(summary = "Obtiene todos los profesores")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Se han encontrado los profesores",

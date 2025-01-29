@@ -15,7 +15,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="cursos")
+@Table(name="curso")
 public class Curso {
 
     //Atributos de la clase
@@ -31,8 +31,8 @@ public class Curso {
     @ManyToMany(mappedBy = "cursos", fetch = FetchType.EAGER)
     @Builder.Default
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Set<Profesor> profesores = new HashSet<>();
+    @Setter(AccessLevel.NONE)
+    private Set<Profesor> teachers = new HashSet<>();
 
 
     //Equals & hasCode
