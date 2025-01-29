@@ -28,5 +28,10 @@ public class TrabajadorController {
                 .body(trabajadorService.save(trabajador));
     }
 
+    @GetMapping("{id}")
+    public Trabajador findById(@PathVariable Long id) {
+        return trabajadorService.findById(id);
+    }
+
 
 }
