@@ -62,5 +62,7 @@ public class MainDeMentira {
 
         profesorRepository.findAll().forEach(System.out::println);
         cursoRepository.findAll().forEach(System.out::println);
+
+        System.out.println(profesorRepository.infoBasicaProfesoressPorCurso("Java Básico"));
     }
 }
