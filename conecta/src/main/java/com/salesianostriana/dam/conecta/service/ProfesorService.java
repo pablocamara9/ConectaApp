@@ -35,13 +35,8 @@ public class ProfesorService {
     }
 
     //Guardamos el profesor usando el Dto
-    public Profesor saveProfesor(EditProfesorDto profesorDto) {
-        return repo.save(Profesor.builder()
-                .nombre(profesorDto.nombre())
-                .email(profesorDto.email())
-                .apellidos(profesorDto.apellidos())
-                .telefono(profesorDto.telefono())
-                .build());
+    public Profesor saveProfesor(Profesor profesor) {
+        return repo.save(profesor);
     }
 
     //Editar profesor usando el dto

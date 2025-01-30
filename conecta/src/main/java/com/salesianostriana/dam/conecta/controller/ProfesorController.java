@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.conecta.controller;
 
 import com.salesianostriana.dam.conecta.dtos.EditProfesorDto;
+import com.salesianostriana.dam.conecta.dtos.GetAllProfesoresDto;
 import com.salesianostriana.dam.conecta.model.Profesor;
 import com.salesianostriana.dam.conecta.service.ProfesorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,9 +38,9 @@ public class ProfesorController {
         content = @Content)
     })
 @PostMapping
-    public ResponseEntity<Profesor> createProfesor(@RequestBody EditProfesorDto nuevo) {
+    public ResponseEntity<EditProfesorDto> createProfesor(@RequestBody Profesor nuevo) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(profesorService.saveProfesor(nuevo));
+                .body(EditProfesorDto.of(profesorService.saveProfesor(nuevo)));
     }
 
 
@@ -69,8 +70,8 @@ public class ProfesorController {
             )
     })
     @GetMapping
-    public List<Profesor> getAll() {
-        return profesorService.findallProfesores();
+    public ResponseEntity<GetAllProfesoresDto> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(GetAllProfesoresDto.fromDto(profesorService.findallProfesores()));
     }
 
     @Operation(summary = "Obtiene un profesor por su ID")

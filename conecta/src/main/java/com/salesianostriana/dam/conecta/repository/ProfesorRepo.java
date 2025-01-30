@@ -17,4 +17,12 @@ public interface ProfesorRepo
     """)
     List<EditProfesorDto> infoBasicaProfesoressPorCurso(String cursoNombre);
 
+    @Query("""
+            select p
+            from Profesor p left join fetch p.cursos
+            where p.nombre < ?1
+            """)
+    List<Profesor> profesoresConCurso(String p);
+
+
 }

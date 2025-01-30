@@ -33,6 +33,8 @@ public class Profesor extends Persona{
             foreignKey = @ForeignKey(name = "fk_profesor_es_docente_curso"),
             inverseForeignKey = @ForeignKey(name = "fk_curso_es_docente_profesor"))
     @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Curso> cursos = new HashSet<>();
 
     //Métodos helpers PROFESOR-CURSO
