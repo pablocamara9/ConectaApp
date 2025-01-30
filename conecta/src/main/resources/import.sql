@@ -3,13 +3,13 @@
 INSERT INTO profesor (id, nombre, apellidos, email, telefono)
 VALUES (nextval('profesor_seq'), 'Juan', 'Pérez', 'juan.perez@email.com', '600123456');
 
-INSERT INTO persona (id, nombre, apellidos, email, telefono)
+INSERT INTO profesor (id, nombre, apellidos, email, telefono)
 VALUES (nextval('profesor_seq'), 'María', 'Gómez', 'maria.gomez@email.com', '600987654');
 
-INSERT INTO persona (id, nombre, apellidos, email, telefono)
+INSERT INTO profesor (id, nombre, apellidos, email, telefono)
 VALUES (nextval('profesor_seq'), 'Carlos', 'Lopez', 'carlos.lopez@email.com', '600456789');
 
-INSERT INTO persona (id, nombre, apellidos, email, telefono)
+INSERT INTO profesor (id, nombre, apellidos, email, telefono)
 VALUES (nextval('profesor_seq'), 'Ana', 'Rodríguez', 'ana.rodriguez@email.com', '600345678');
 
 
