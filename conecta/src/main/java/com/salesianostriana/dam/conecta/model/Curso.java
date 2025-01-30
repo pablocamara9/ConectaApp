@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Setter
@@ -28,10 +26,11 @@ public class Curso {
 
 
     //Asociación CURSOS-PROFESOR
-    @ManyToMany(mappedBy = "cursos", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "cursos")
     @Builder.Default
     @ToString.Exclude
     @Setter(AccessLevel.NONE)
+    @EqualsAndHashCode.Exclude
     private Set<Profesor> teachers = new HashSet<>();
 
 

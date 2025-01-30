@@ -10,10 +10,9 @@ import java.util.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(callSuper = true)
 @SuperBuilder
-@MappedSuperclass
 @Entity
+@Table(name = "profesor")
 public class Profesor extends Persona{
 
     //Constructor
@@ -27,25 +26,24 @@ public class Profesor extends Persona{
     private Usuario usuario;
 
     //Asociación PROFESOR-CURSO
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable( name = "esDocenteEn",
-    joinColumns = @JoinColumn(name = "profesor_id"),
-    inverseJoinColumns = @JoinColumn(name = "curso_id"),
-    foreignKey = @ForeignKey(name = "fk_profesor_es_docente_curso"),
-    inverseForeignKey = @ForeignKey(name = "fk_curso_es_docente_profesor"))
+            joinColumns = @JoinColumn(name = "profesor_id"),
+            inverseJoinColumns = @JoinColumn(name = "curso_id"), // Debe coincidir con la relación en Curso
+            foreignKey = @ForeignKey(name = "fk_profesor_es_docente_curso"),
+            inverseForeignKey = @ForeignKey(name = "fk_curso_es_docente_profesor"))
     @Builder.Default
-    private Set<Curso> classes = new HashSet<>();
+    private Set<Curso> cursos = new HashSet<>();
 
     //Métodos helpers PROFESOR-CURSO
     public void addCurso(Curso curso) {
-        this.classes.add(curso);
+        this.cursos.add(curso);
         curso.getTeachers().add(this);
     }
     public void removeCurso(Curso curso) {
-        this.classes.remove(curso);
+        this.cursos.remove(curso);
     }
 
-    //Equals & HasCode
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
@@ -61,5 +59,4 @@ public class Profesor extends Persona{
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
-
 }
