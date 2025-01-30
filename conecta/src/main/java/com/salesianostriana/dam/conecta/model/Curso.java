@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Setter
@@ -15,7 +13,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="cursos")
+@Table(name="curso")
 public class Curso {
 
     //Atributos de la clase
@@ -28,11 +26,12 @@ public class Curso {
 
 
     //Asociación CURSOS-PROFESOR
-    @ManyToMany(mappedBy = "cursos", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "cursos")
     @Builder.Default
     @ToString.Exclude
+    @Setter(AccessLevel.NONE)
     @EqualsAndHashCode.Exclude
-    private Set<Profesor> profesores = new HashSet<>();
+    private Set<Profesor> teachers = new HashSet<>();
 
 
     //Equals & hasCode

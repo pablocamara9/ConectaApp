@@ -3,9 +3,12 @@ package com.salesianostriana.dam.conecta.controller;
 
 import com.salesianostriana.dam.conecta.dtos.EditCursoDto;
 import com.salesianostriana.dam.conecta.dtos.EditProfesorDto;
+import com.salesianostriana.dam.conecta.dtos.GetAllCursosDto;
+import com.salesianostriana.dam.conecta.dtos.GetAllProfesoresDto;
 import com.salesianostriana.dam.conecta.model.Curso;
 import com.salesianostriana.dam.conecta.model.Profesor;
 import com.salesianostriana.dam.conecta.service.CursoService;
+import com.salesianostriana.dam.conecta.service.ProfesorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -19,13 +22,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/curso/")
 @RequiredArgsConstructor
-@Tag(name = "Curso", description = "El controlador de cursos para gestionar sus operaciones ")
-public class CursoController {
+@RequestMapping("(/curso)")
+@Tag(name= "curso")
+public class CursoController{
 
     private final CursoService cursoService;
 
@@ -40,37 +41,39 @@ public class CursoController {
                     content = @Content)
     })
     @PostMapping
-    public ResponseEntity<Curso> createCurso(@RequestBody EditCursoDto nuevo) {
+    public ResponseEntity<EditCursoDto> createCurso(@RequestBody Curso nuevo) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(cursoService.saveCurso(nuevo));
+                .body(EditCursoDto
+                        .of(cursoService.saveCurso(nuevo)));
     }
-    @Operation(summary = "Obtiene todas los cursos")
+
+
+    @Operation(summary = "Obtiene todos los curso")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Se han encontrado cursos",
+                    description = "Se han encontrado los curso",
                     content = { @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = EditCursoDto.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = Curso.class)),
                             examples = {@ExampleObject(
                                     value = """
-                                            [
-                                                {"nombre":"1 DAM", "horasEmpresa":"60" }
-                                                {"nombre":"2 DAM", "horasEmpresa":"160" }
-                                            ]
+                                            {
+                                              {
+                                                 "nombre" : "1 dam",
+                                                 "horasEmpresa":"78-"
+                                            
+                                              }
+                                            }
                                             """
                             )}
                     )}),
             @ApiResponse(responseCode = "404",
-                    description = "No se han encontrado cursos",
-                    content = @Content)
+                    description = "No se han encontrado cursos"
+            )
     })
     @GetMapping
-    public List<EditCursoDto> getAll() {
-        return cursoService.findAllCursos()
-                .stream()
-                .map(EditCursoDto::of)
-                .toList();
+    public ResponseEntity<GetAllCursosDto> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(GetAllCursosDto.fromDto(cursoService.findAllCursos()));
     }
-
 
     @Operation(summary = "Obtiene un curso por su ID")
     @ApiResponses(value = {
