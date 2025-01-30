@@ -3,7 +3,6 @@ package com.salesianostriana.dam.conecta.service;
 import com.salesianostriana.dam.conecta.dtos.EditTrabajadorDto;
 import com.salesianostriana.dam.conecta.model.Trabajador;
 import com.salesianostriana.dam.conecta.repository.TrabajadorRepo;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ public class TrabajadorService {
     public List<Trabajador> findAll() {
         List<Trabajador> trabajadores = trabajadorRepo.findAll();
         if(trabajadores.isEmpty()) {
-            throw new EntityNotFoundException("No se encontraron el trabajadores");
+            throw new EntityNotFoundException("No se encontraron los trabajadores");
         }
         return trabajadores;
     }
@@ -45,8 +44,11 @@ public class TrabajadorService {
     }
 
     public Trabajador edit(EditTrabajadorDto dto, Long id) {
-        return trabajadorRepo.findById(id)
-                .map(old -> {
+        Optional<Trabajador> aBuscar = trabajadorRepo.findById(id);
+                if(aBuscar.isEmpty()){
+                    throw new EntityNotFoundException("No se encontró el trabajador con el id " + id);
+                }
+                return aBuscar.map(old -> {
                     old.setNombre(dto.nombre());
                     old.setApellidos(dto.apellidos());
                     old.setEmail(dto.email());
@@ -54,8 +56,8 @@ public class TrabajadorService {
                     old.setPuesto(dto.puesto());
                     old.setArea(dto.area());
                     return trabajadorRepo.save(old);
-                })
-                .orElseThrow(() -> new EntityNotFoundException("No se encontró el trabajador con el id " + id));
+                }).get();
+                //.orElseThrow(() -> new EntityNotFoundException("No se encontró el trabajador con el id " + id));
     }
 
     public void delete(Long id) {
