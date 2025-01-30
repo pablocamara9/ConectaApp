@@ -37,9 +37,8 @@ public class CursoService {
     }
 
     //Guardamos el curso usando el Dto
-    public Curso saveCurso(EditCursoDto cursdto) {
-        return cursoR.save(Curso.builder()
-                .nombre(cursdto.nombre()).horasEmpresa(cursdto.horasEmpresa()).build());
+    public Curso saveCurso(Curso nuevo) {
+        return cursoR.save(nuevo);
     }
 
     //Editar curso usando el dto
