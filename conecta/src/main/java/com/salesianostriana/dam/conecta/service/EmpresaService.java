@@ -39,6 +39,7 @@ public class EmpresaService {
                 .direccion(dto.direccion())
                 .coordenadas(dto.coordenadas())
                 .nombre(dto.nombre())
+                .trabajadores(dto.trabajadores())
                 .build());
     }
 
