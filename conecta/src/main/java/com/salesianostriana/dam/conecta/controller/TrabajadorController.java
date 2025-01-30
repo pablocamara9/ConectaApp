@@ -33,5 +33,10 @@ public class TrabajadorController {
         return trabajadorService.findById(id);
     }
 
+    @PutMapping("{id}")
+    public Trabajador edit(@PathVariable Long id, @RequestBody EditTrabajadorDto trabajador) {
+        return trabajadorService.edit(trabajador, id);
+    }
+
 
 }
