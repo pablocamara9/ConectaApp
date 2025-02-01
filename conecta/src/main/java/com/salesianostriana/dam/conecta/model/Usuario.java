@@ -18,7 +18,7 @@ import java.util.Objects;
 public class Usuario {
     //Atributos de la clase USUARIO
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String password;
@@ -28,8 +28,7 @@ public class Usuario {
     //Asociación USUARIO_PROFESOR
     @OneToOne(fetch = FetchType.LAZY )
     @JoinColumn(name = "profesor_id")
-    @MapsId
-    private Profesor profesor;
+      private Profesor profesor;
 
 
 

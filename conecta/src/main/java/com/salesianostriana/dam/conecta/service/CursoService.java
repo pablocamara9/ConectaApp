@@ -36,7 +36,7 @@ public class CursoService {
         return cursosOp.get();
     }
 
-    //Guardamos el curso usando el Dto
+    //Guardamos el curso usando
     public Curso saveCurso(Curso nuevo) {
         return cursoR.save(nuevo);
     }
