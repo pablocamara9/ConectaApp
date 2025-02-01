@@ -21,10 +21,21 @@ public class Profesor extends Persona{
     }
 
     //Asociación PROFESOR-USUARIO
-    @OneToOne
-    @JoinColumn(name = "usuario_id")
+    @OneToOne(mappedBy = "profesor",cascade = CascadeType.ALL,
+           optional = false, fetch = FetchType.LAZY)
     private Usuario usuario;
 
+
+    //Métodos helpers
+    public void setUsuario(Usuario usuario) {
+        if(usuario == null){
+            if (this.usuario != null){
+                this.usuario.setProfesor(null);
+            }
+        }else{usuario.setProfesor(this);
+        }
+        this.usuario = usuario;
+    }
     //Asociación PROFESOR-CURSO
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable( name = "esDocenteEn",

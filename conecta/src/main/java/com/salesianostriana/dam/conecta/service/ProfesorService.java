@@ -34,7 +34,7 @@ public class ProfesorService {
         return profesor.get();
     }
 
-    //Guardamos el profesor usando el Dto
+    //Guardamos el profesor
     public Profesor saveProfesor(Profesor profesor) {
         return repo.save(profesor);
     }

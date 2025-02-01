@@ -14,7 +14,7 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="usuarios")
+@Table(name="usuario")
 public class Usuario {
     //Atributos de la clase USUARIO
     @Id
@@ -26,8 +26,12 @@ public class Usuario {
     private String role;
 
     //Asociación USUARIO_PROFESOR
-    @OneToOne(mappedBy = "usuario")
+    @OneToOne(fetch = FetchType.LAZY )
+    @JoinColumn(name = "profesor_id")
+    @MapsId
     private Profesor profesor;
+
+
 
     //Equals and hasCode
     @Override
