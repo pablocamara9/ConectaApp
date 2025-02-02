@@ -33,4 +33,9 @@ public class EmpresaController {
         return empresaService.findById(id);
     }
 
+    @PutMapping("{id}")
+    public Empresa edit(@PathVariable Long id, @RequestBody EditEmpresaDto empresa) {
+        return empresaService.edit(empresa, id);
+    }
+
 }
