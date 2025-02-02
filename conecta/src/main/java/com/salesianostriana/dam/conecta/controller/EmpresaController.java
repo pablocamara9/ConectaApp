@@ -28,4 +28,9 @@ public class EmpresaController {
                 .body(empresaService.save(empresa));
     }
 
+    @GetMapping("{id}")
+    public Empresa findById(@PathVariable Long id) {
+        return empresaService.findById(id);
+    }
+
 }
