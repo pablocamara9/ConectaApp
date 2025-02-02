@@ -6,10 +6,9 @@ import com.salesianostriana.dam.conecta.service.EmpresaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,6 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmpresaController {
 
     private final EmpresaService empresaService;
+
+    @GetMapping
+    public List<Empresa> findAll() {
+        return empresaService.findAll();
+    }
 
     @PostMapping
     public ResponseEntity<Empresa> addEmpresa(@RequestBody EditEmpresaDto empresa) {
