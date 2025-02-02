@@ -38,4 +38,10 @@ public class EmpresaController {
         return empresaService.edit(empresa, id);
     }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        empresaService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
