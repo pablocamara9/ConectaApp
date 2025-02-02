@@ -47,9 +47,9 @@ public class EmpresaService {
         return empresaRepo.findById(id)
                 .map(old -> {
                     old.setCif(dto.cif());
-                    old.setDireccion(old.getDireccion());
-                    old.setCoordenadas(old.getCoordenadas());
-                    old.setNombre(old.getNombre());
+                    old.setDireccion(dto.direccion());
+                    old.setCoordenadas(dto.coordenadas());
+                    old.setNombre(dto.nombre());
                     return empresaRepo.save(old);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró la empresa con el id " + id));
