@@ -40,6 +40,7 @@ public class TrabajadorService {
                 .telefono(dto.telefono())
                 .puesto(dto.puesto())
                 .area(dto.area())
+                .empresa(dto.empresa())
                 .build());
     }
 

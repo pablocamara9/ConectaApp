@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.conecta.controller;
 
 import com.salesianostriana.dam.conecta.dtos.EditTrabajadorDto;
+import com.salesianostriana.dam.conecta.dtos.GetTrabajadorDto;
 import com.salesianostriana.dam.conecta.model.Trabajador;
 import com.salesianostriana.dam.conecta.service.TrabajadorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -51,8 +52,9 @@ public class TrabajadorController {
             )
     })
     @GetMapping
-    public List<Trabajador> getAll() {
-        return trabajadorService.findAll();
+    public List<GetTrabajadorDto> getAll() {
+        //return trabajadorService.findAll();
+        return trabajadorService.findAll().stream().map(GetTrabajadorDto::of).toList();
     }
 
     @Operation(summary = "Crea un nuevo trabajador")

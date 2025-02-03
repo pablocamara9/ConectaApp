@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.conecta.controller;
 
 import com.salesianostriana.dam.conecta.dtos.EditEmpresaDto;
+import com.salesianostriana.dam.conecta.dtos.GetEmpresaDto;
 import com.salesianostriana.dam.conecta.model.Empresa;
 import com.salesianostriana.dam.conecta.model.Trabajador;
 import com.salesianostriana.dam.conecta.service.EmpresaService;
@@ -51,8 +52,8 @@ public class EmpresaController {
             )
     })
     @GetMapping
-    public List<Empresa> findAll() {
-        return empresaService.findAll();
+    public List<GetEmpresaDto> findAll() {
+        return empresaService.findAll().stream().map(GetEmpresaDto::of).toList();
     }
 
     @Operation(summary = "Crea una nueva empresa")
