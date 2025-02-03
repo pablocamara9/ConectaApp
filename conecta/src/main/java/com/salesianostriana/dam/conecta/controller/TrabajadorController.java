@@ -84,8 +84,8 @@ public class TrabajadorController {
                     content = @Content)
     })
     @GetMapping("{id}")
-    public Trabajador findById(@PathVariable Long id) {
-        return trabajadorService.findById(id);
+    public GetTrabajadorDto findById(@PathVariable Long id) {
+        return GetTrabajadorDto.of(trabajadorService.findById(id));
     }
 
     @Operation(summary = "Edita un trabajador existente")

@@ -83,8 +83,8 @@ public class EmpresaController {
                     content = @Content)
     })
     @GetMapping("{id}")
-    public Empresa findById(@PathVariable Long id) {
-        return empresaService.findById(id);
+    public GetEmpresaDto findById(@PathVariable Long id) {
+        return GetEmpresaDto.of(empresaService.findById(id));
     }
 
     @Operation(summary = "Edita una empresa existente")
