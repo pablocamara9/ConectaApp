@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.conecta.service;
 
 import com.salesianostriana.dam.conecta.dtos.EditFamiliaProfesionalDto;
+import com.salesianostriana.dam.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianostriana.dam.conecta.model.FamiliaProfesional;
 import com.salesianostriana.dam.conecta.repository.FamiliaProfesionalRepo;
 import jakarta.persistence.EntityNotFoundException;
@@ -19,7 +20,7 @@ public class FamiliaProfesionalService {
     public List<FamiliaProfesional> findAll() {
         List<FamiliaProfesional> familiasProfesionales = familiaProfesionalRepo.findAll();
         if(familiasProfesionales.isEmpty()) {
-            throw new EntityNotFoundException("No se encontraron familias profesionales");
+            throw new FamiliaProfesionalNotFoundException("No se encontraron familias profesionales");
         }
         return familiasProfesionales;
     }
@@ -27,7 +28,7 @@ public class FamiliaProfesionalService {
     public FamiliaProfesional findById(Long id) {
         Optional<FamiliaProfesional> familiaProfesionalOpt = familiaProfesionalRepo.findById(id);
         if(familiaProfesionalOpt.isEmpty()) {
-            throw new EntityNotFoundException("No se encontró la familia profesional con el id " + id);
+            throw new FamiliaProfesionalNotFoundException("No se encontró la familia profesional con el id " + id);
         }
         return familiaProfesionalOpt.get();
     }
@@ -42,7 +43,7 @@ public class FamiliaProfesionalService {
     public FamiliaProfesional edit(EditFamiliaProfesionalDto dto, Long id) {
         Optional<FamiliaProfesional> familiaProfesionalOpt = familiaProfesionalRepo.findById(id);
         if(familiaProfesionalOpt.isEmpty()) {
-            throw new EntityNotFoundException("No se encontró la familia profesional con el id " + id);
+            throw new FamiliaProfesionalNotFoundException("No se encontró la familia profesional con el id " + id);
         }
         return familiaProfesionalOpt.map(old -> {
             old.setNombre(dto.nombre());
