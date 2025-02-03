@@ -13,41 +13,26 @@ import java.util.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="curso")
-public class Curso {
+@Table(name="titulo")
+public class Titulo {
 
-    //Atributos de la clase
     @Id
     @GeneratedValue
     private Long id;
 
     private String nombre;
-    private int horasEmpresa;
+    private Date duracion;
+    private String grado;
 
-
-    //Asociación CURSOS-PROFESOR
-    @ManyToMany(mappedBy = "cursos")
-    @Builder.Default
+    //Asociacion CURSO_TITULO
+    @OneToMany(mappedBy = "titulo", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
-    @Setter(AccessLevel.NONE)
     @EqualsAndHashCode.Exclude
-    private Set<Profesor> teachers = new HashSet<>();
+    @Builder.Default
+    Set<Curso> cursos = new HashSet<>();
 
 
-    //Asocación CURSO_TIRULO
-    @ManyToOne
-    @JoinColumn(name = "titulo_id")
-    private Titulo titulo;
-
-    //Métodos helpers
-    public void addToTitulo(Titulo t) {
-        t.getCursos().add(this);
-        this.titulo = t;
-    }
-    public void removeFromTitulo(Titulo t) {
-        t.getCursos().remove(this);
-    }
-    //Equals & hasCode
+    //Equals and HAsCode
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
@@ -55,8 +40,8 @@ public class Curso {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Curso curso = (Curso) o;
-        return getId() != null && Objects.equals(getId(), curso.getId());
+        Titulo titulo = (Titulo) o;
+        return getId() != null && Objects.equals(getId(), titulo.getId());
     }
 
     @Override
