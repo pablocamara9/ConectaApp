@@ -3,7 +3,6 @@ package com.salesianostriana.dam.conecta.controller;
 import com.salesianostriana.dam.conecta.dtos.EditEmpresaDto;
 import com.salesianostriana.dam.conecta.dtos.GetEmpresaDto;
 import com.salesianostriana.dam.conecta.model.Empresa;
-import com.salesianostriana.dam.conecta.model.Trabajador;
 import com.salesianostriana.dam.conecta.service.EmpresaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -42,7 +41,17 @@ public class EmpresaController {
                                                     "direccion": "C/ San Venecia, 6",
                                                     "coordenadas": -123.5,
                                                     "nombre": "Calzados Pepe",
-                                                    "trabajadores": []
+                                                    "trabajadores": [
+                                                        {
+                                                            "id": 1,
+                                                            "nombre": "Pepe",
+                                                            "apellidos": "Segura Rodríguez",
+                                                            "email": "segura.rojos23@triana.salesianos.edu",
+                                                            "telefono": "660232323",
+                                                            "puesto": "barrendero",
+                                                            "area": "basurero"
+                                                        }
+                                                    ]
                                             }
                                             """
                             )}
@@ -98,8 +107,8 @@ public class EmpresaController {
                     content = @Content)
     })
     @PutMapping("{id}")
-    public Empresa edit(@PathVariable Long id, @RequestBody EditEmpresaDto empresa) {
-        return empresaService.edit(empresa, id);
+    public GetEmpresaDto edit(@PathVariable Long id, @RequestBody EditEmpresaDto empresa) {
+        return GetEmpresaDto.of(empresaService.edit(empresa, id));
     }
 
     @Operation(summary = "Elimina una empresa buscándola por su ID")

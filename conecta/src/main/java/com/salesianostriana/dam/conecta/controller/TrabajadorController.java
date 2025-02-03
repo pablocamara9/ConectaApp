@@ -99,8 +99,8 @@ public class TrabajadorController {
                     content = @Content)
     })
     @PutMapping("{id}")
-    public Trabajador edit(@PathVariable Long id, @RequestBody EditTrabajadorDto trabajador) {
-        return trabajadorService.edit(trabajador, id);
+    public GetTrabajadorDto edit(@PathVariable Long id, @RequestBody EditTrabajadorDto trabajador) {
+        return GetTrabajadorDto.of(trabajadorService.edit(trabajador, id));
     }
 
     @Operation(summary = "Elimina un trabajador buscándolo por su ID")
