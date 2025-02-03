@@ -104,5 +104,21 @@ public class UsuarioController {
         return usuarioService.editUsaurioo(editDto, id );
     }
 
+    @Operation(summary = "Elimina un usuario por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "usuario eliminado con éxito",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el usuario con el ID proporcionado",
+                    content = @Content)
+    })
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        usuarioService.deleteUsuario(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 
 }
