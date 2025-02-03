@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.conecta.service;
 
 import com.salesianostriana.dam.conecta.dtos.EditEmpresaDto;
+import com.salesianostriana.dam.conecta.error.EmpresaNotFoundException;
 import com.salesianostriana.dam.conecta.model.Empresa;
 import com.salesianostriana.dam.conecta.model.Empresa;
 import com.salesianostriana.dam.conecta.repository.EmpresaRepo;
@@ -20,7 +21,7 @@ public class EmpresaService {
     public List<Empresa> findAll() {
         List<Empresa> empresas = empresaRepo.findAll();
         if(empresas.isEmpty()) {
-            throw new EntityNotFoundException("No se encontraron empresas");
+            throw new EmpresaNotFoundException("No se encontraron empresas");
         }
         return empresas;
     }
@@ -28,7 +29,7 @@ public class EmpresaService {
     public Empresa findById(Long id) {
         Optional<Empresa> EmpresaOpt = empresaRepo.findById(id);
         if(EmpresaOpt.isEmpty()) {
-            throw new EntityNotFoundException("No se encontró la empresa con el id " + id);
+            throw new EmpresaNotFoundException("No se encontró la empresa con el id " + id);
         }
         return EmpresaOpt.get();
     }
@@ -52,7 +53,7 @@ public class EmpresaService {
                     old.setNombre(dto.nombre());
                     return empresaRepo.save(old);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("No se encontró la empresa con el id " + id));
+                .orElseThrow(() -> new EmpresaNotFoundException("No se encontró la empresa con el id " + id));
     }
 
     public void delete(Long id) {

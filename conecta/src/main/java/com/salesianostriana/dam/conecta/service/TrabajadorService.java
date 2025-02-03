@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.conecta.service;
 
 import com.salesianostriana.dam.conecta.dtos.EditTrabajadorDto;
+import com.salesianostriana.dam.conecta.error.TrabajadorNotFoundException;
 import com.salesianostriana.dam.conecta.model.Trabajador;
 import com.salesianostriana.dam.conecta.repository.TrabajadorRepo;
 import jakarta.persistence.EntityNotFoundException;
@@ -19,7 +20,7 @@ public class TrabajadorService {
     public List<Trabajador> findAll() {
         List<Trabajador> trabajadores = trabajadorRepo.findAll();
         if(trabajadores.isEmpty()) {
-            throw new EntityNotFoundException("No se encontraron los trabajadores");
+            throw new TrabajadorNotFoundException("No se encontraron los trabajadores");
         }
         return trabajadores;
     }
@@ -27,7 +28,7 @@ public class TrabajadorService {
     public Trabajador findById(Long id) {
         Optional<Trabajador> trabajadorOpt = trabajadorRepo.findById(id);
         if(trabajadorOpt.isEmpty()) {
-            throw new EntityNotFoundException("No se encontró el trabajador con el id " + id);
+            throw new TrabajadorNotFoundException("No se encontró el trabajador con el id " + id);
         }
         return trabajadorOpt.get();
     }
@@ -47,7 +48,7 @@ public class TrabajadorService {
     public Trabajador edit(EditTrabajadorDto dto, Long id) {
         Optional<Trabajador> aBuscar = trabajadorRepo.findById(id);
                 if(aBuscar.isEmpty()){
-                    throw new EntityNotFoundException("No se encontró el trabajador con el id " + id);
+                    throw new TrabajadorNotFoundException("No se encontró el trabajador con el id " + id);
                 }
                 return aBuscar.map(old -> {
                     old.setNombre(dto.nombre());
