@@ -1,14 +1,12 @@
 package com.salesianostriana.dam.conecta.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -16,18 +14,23 @@ import java.util.Objects;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
-//@MappedSuperclass
-public abstract class Persona {
+@Builder
+public class Empresa {
 
     @Id
     @GeneratedValue
     private Long id;
 
+    private String cif;
+    private String direccion;
+    private double coordenadas;
     private String nombre;
-    private String apellidos;
-    private String email;
-    private String telefono;
+
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER)
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Trabajador> trabajadores = new HashSet<>();
 
     @Override
     public final boolean equals(Object o) {
@@ -36,8 +39,8 @@ public abstract class Persona {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Persona persona = (Persona) o;
-        return getId() != null && Objects.equals(getId(), persona.getId());
+        Empresa empresa = (Empresa) o;
+        return getId() != null && Objects.equals(getId(), empresa.getId());
     }
 
     @Override
