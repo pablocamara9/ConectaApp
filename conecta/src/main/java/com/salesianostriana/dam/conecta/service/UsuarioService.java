@@ -52,4 +52,9 @@ public class UsuarioService {
         return usuariorepo.save(usuarioOp.get());
     }
 
+    //Eliminar profesor
+    public void deleteUsuario(Long id) {
+        usuariorepo.deleteById(id);
+    }
+
 }
