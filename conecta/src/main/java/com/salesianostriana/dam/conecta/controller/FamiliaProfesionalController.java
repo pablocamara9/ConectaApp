@@ -29,4 +29,9 @@ public class FamiliaProfesionalController {
                 .body(familiaProfesionalService.save(familiaProfesional));
     }
 
+    @GetMapping("{id}")
+    public GetFamiliaProfesionalDto findById(@PathVariable Long id) {
+        return GetFamiliaProfesionalDto.of(familiaProfesionalService.findById(id));
+    }
+
 }
