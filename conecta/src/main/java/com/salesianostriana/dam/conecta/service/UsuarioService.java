@@ -30,12 +30,12 @@ public class UsuarioService {
     }
 
     //Buscar por id Usuarios
-    public Profesor findUsuarioById(Long id) {
+    public Usuario findUsuarioById(Long id) {
         Optional<Usuario> usuario = usuariorepo.findById(id);
         if(usuario.isEmpty()){
             throw new EntityNotFoundException("No se han encontrado usuario cone ese id ");
         }
-        return usuario.get().getProfesor();
+        return usuario.get();
     }
 
 }

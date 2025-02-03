@@ -72,4 +72,21 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(GetAllUsuariosDto.fromDto(usuarioService.findallUsuarios()));
     }
 
+
+    @Operation(summary = "Obtiene un usuario por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado el usuario",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Usuario.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el usuario con el ID proporcionado",
+                    content = @Content)
+    })
+    @GetMapping("{id}")
+    public Usuario getById(@PathVariable Long id) {
+        return usuarioService.findUsuarioById(id);
+    }
+
+
 }
