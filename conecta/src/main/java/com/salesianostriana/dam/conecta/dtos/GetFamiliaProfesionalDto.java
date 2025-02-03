@@ -7,7 +7,7 @@ import java.util.List;
 
 public record GetFamiliaProfesionalDto(String nombre, List<Empresa> empresasAsociadas) {
 
-    public GetFamiliaProfesionalDto of(FamiliaProfesional dto) {
+    public static GetFamiliaProfesionalDto of(FamiliaProfesional dto) {
         return new GetFamiliaProfesionalDto(
                 dto.getNombre(),
                 dto.getEmpresasRelacionadas()
