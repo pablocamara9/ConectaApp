@@ -34,4 +34,9 @@ public class FamiliaProfesionalController {
         return GetFamiliaProfesionalDto.of(familiaProfesionalService.findById(id));
     }
 
+    @PutMapping("{id}")
+    public GetFamiliaProfesionalDto edit(@PathVariable Long id, @RequestBody EditFamiliaProfesionalDto familiaProfesional) {
+        return GetFamiliaProfesionalDto.of(familiaProfesionalService.edit(familiaProfesional, id));
+    }
+
 }
