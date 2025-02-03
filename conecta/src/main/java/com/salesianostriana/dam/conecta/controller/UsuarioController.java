@@ -88,5 +88,21 @@ public class UsuarioController {
         return usuarioService.findUsuarioById(id);
     }
 
+    @Operation(summary = "Edita un Usuario existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Usuario actualizado con éxito",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Usuario.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el usuario  con el ID proporcionado",
+                    content = @Content)
+    })
+    @PutMapping("{id}")
+    public Usuario edit(@RequestBody EditUsuarioDto editDto,
+                         @PathVariable Long id) {
+        return usuarioService.editUsaurioo(editDto, id );
+    }
+
 
 }
