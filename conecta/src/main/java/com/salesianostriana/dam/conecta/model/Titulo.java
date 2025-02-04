@@ -24,7 +24,7 @@ public class Titulo {
     private Date duracion;
     private String grado;
 
-    //Asociacion CURSO_TITULO
+    //Asociacion CURSO-TITULO
     @OneToMany(mappedBy = "titulo", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
