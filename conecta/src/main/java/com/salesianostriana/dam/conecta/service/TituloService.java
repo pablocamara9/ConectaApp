@@ -64,4 +64,8 @@ public class TituloService {
     }
 
 
+    //Buscar títulos por su nombre
+    public List<Titulo> obtenerTituloPorNombre(String nombre) {
+        return repo.buscarTitulosPorNombre(nombre);
+    }
 }

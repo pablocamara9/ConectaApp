@@ -11,10 +11,10 @@ public interface TituloRepo
     //Consulta que nos devolverá los titulos con el nombre x ,
     // atrayendo también los datos de la familia profesional
     @Query("""
-            select t 
+            select t
             from Titulo t left join fetch t.familiaProfesional fp
             where t.nombre like %?1%
-            """)
+           """)
     List<Titulo> buscarTitulosPorNombre(String nombre);
 }
 
