@@ -29,4 +29,9 @@ public class DemandaController {
                 .body(demandaService.save(demanda));
     }
 
+    @GetMapping("{id}")
+    public GetDemandaDto findById(@PathVariable Long id) {
+        return GetDemandaDto.of(demandaService.findById(id));
+    }
+
 }
