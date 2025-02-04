@@ -5,8 +5,10 @@ import com.salesianostriana.dam.conecta.model.Profesor;
 import com.salesianostriana.dam.conecta.repository.CursoRepo;
 import com.salesianostriana.dam.conecta.repository.ProfesorRepo;*/
 import com.salesianostriana.dam.conecta.model.Empresa;
+import com.salesianostriana.dam.conecta.model.FamiliaProfesional;
 import com.salesianostriana.dam.conecta.model.Trabajador;
 import com.salesianostriana.dam.conecta.repository.EmpresaRepo;
+import com.salesianostriana.dam.conecta.repository.FamiliaProfesionalRepo;
 import com.salesianostriana.dam.conecta.repository.TrabajadorRepo;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class MainDeMentira {
 
     private final TrabajadorRepo trabajadorRepo;
     private final EmpresaRepo empresaRepo;
+    private final FamiliaProfesionalRepo familiaProfesionalRepo;
 
     /*private final ProfesorRepo profesorRepository;
     private final CursoRepo cursoRepository;*/
@@ -61,6 +64,19 @@ public class MainDeMentira {
 
         t1.addToEmpresa(e1);
         t2.addToEmpresa(e1);
+
+        FamiliaProfesional fp1 = FamiliaProfesional.builder()
+                .nombre("Informática")
+                .empresasRelacionadas(empresaRepo.findAll())
+                .build();
+
+        FamiliaProfesional fp2 = FamiliaProfesional.builder()
+                .nombre("Electricidad")
+                .empresasRelacionadas(empresaRepo.findAll())
+                .build();
+
+        familiaProfesionalRepo.save(fp1);
+        familiaProfesionalRepo.save(fp2);
 
         trabajadorRepo.save(t1);
         trabajadorRepo.save(t2);

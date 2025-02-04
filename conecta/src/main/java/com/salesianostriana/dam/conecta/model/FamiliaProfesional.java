@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -13,43 +15,19 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Empresa {
+public class FamiliaProfesional {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private String cif;
-    private String direccion;
-    private double coordenadas;
     private String nombre;
 
-    @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER)
-    @Builder.Default
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Set<Trabajador> trabajadores = new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "empresa_familias_profesionales",
-            joinColumns = @JoinColumn(name = "empresa_id"),
-            inverseJoinColumns = @JoinColumn(name = "familia_profesional_id")
-    )
+    @ManyToMany(mappedBy = "familiasProfesionales", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @Builder.Default
-    private List<FamiliaProfesional> familiasProfesionales = new ArrayList<>();
-
-    public void addFamiliaProfesional(FamiliaProfesional fp) {
-        familiasProfesionales.add(fp);
-        fp.getEmpresasRelacionadas().add(this);
-    }
-
-    public void removeFamiliaProfesional(FamiliaProfesional fp) {
-        fp.getEmpresasRelacionadas().remove(this);
-        familiasProfesionales.remove(fp);
-    }
+    private List<Empresa> empresasRelacionadas = new ArrayList<>();
 
     @Override
     public final boolean equals(Object o) {
@@ -58,8 +36,8 @@ public class Empresa {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Empresa empresa = (Empresa) o;
-        return getId() != null && Objects.equals(getId(), empresa.getId());
+        FamiliaProfesional that = (FamiliaProfesional) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override
