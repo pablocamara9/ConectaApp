@@ -1,5 +1,7 @@
 package com.salesianostriana.dam.conecta.service;
 
+import com.salesianostriana.dam.conecta.dtos.EditProfesorDto;
+import com.salesianostriana.dam.conecta.dtos.EditTituloDto;
 import com.salesianostriana.dam.conecta.model.Profesor;
 import com.salesianostriana.dam.conecta.model.Titulo;
 import com.salesianostriana.dam.conecta.repository.TituloRepo;
@@ -36,5 +38,24 @@ public class TituloService {
         }
         return titulo.get();
     }
+
+    //Editar titulo usando el dto
+    public Titulo editarTitulo(EditTituloDto tituloDto, Long id) {
+        Optional<Titulo> tituloOp = repo.findById(id);
+        if(tituloOp.isEmpty()){
+            throw new EntityNotFoundException("No existen titulos con ese id");
+        }
+        tituloOp.get().setNombre(tituloDto.nombre());
+        tituloOp.get().setDuracion(tituloDto.duracion());
+        tituloOp.get().setGrado(tituloDto.grado());
+        return repo.save(tituloOp.get());
+    }
+
+    //Eliminar titulo
+    public void deleteTitulo(Long id) {
+
+        repo.deleteById(id);
+    }
+
 
 }
