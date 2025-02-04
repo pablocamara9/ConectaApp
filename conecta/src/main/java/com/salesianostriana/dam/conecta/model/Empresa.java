@@ -58,7 +58,7 @@ public class Empresa {
         familiasProfesionales.remove(fp);
     }
 
-    // Empresa - FamiliaProfresional
+    // Empresa - Demanda
     public void addDemanda(Demanda d) {
         d.setEmpresa(this);
         demandas.add(d);
