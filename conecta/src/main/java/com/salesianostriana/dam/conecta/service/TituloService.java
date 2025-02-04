@@ -54,7 +54,6 @@ public class TituloService {
 
     //Eliminar titulo
     public void deleteTitulo(Long id) {
-
         repo.deleteById(id);
     }
 

@@ -12,7 +12,8 @@ public record GetProfesorDto(
         String apellidos,
         String email,
         String telefono,
-        List<String> nombreCursosProfesor
+        List<String> nombreCursosProfesor,
+        GetUsuarioDto usuario
 
 ) {
 
@@ -24,6 +25,7 @@ public record GetProfesorDto(
                 .email(profesor.getEmail())
                 .telefono(profesor.getTelefono())
                 .nombreCursosProfesor(profesor.getCursos().stream().map(x-> x.getNombre() + " ").toList())
+                .usuario(GetUsuarioDto.of(profesor.getUsuario()))
                 .build();
 
     }

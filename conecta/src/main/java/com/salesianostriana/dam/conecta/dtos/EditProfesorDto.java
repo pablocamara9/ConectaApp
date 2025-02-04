@@ -1,12 +1,15 @@
 package com.salesianostriana.dam.conecta.dtos;
 
+import com.salesianostriana.dam.conecta.model.Curso;
 import com.salesianostriana.dam.conecta.model.Profesor;
 import lombok.Builder;
 
-@Builder
-public record EditProfesorDto(String nombre, String apellidos, String email, String telefono) {
+import java.util.List;
 
-    public static EditProfesorDto of(Profesor profesor) {
+@Builder
+public record EditProfesorDto(String nombre, String apellidos, String email, String telefono, List<Curso> cursos) {
+
+    /*public static EditProfesorDto of(Profesor profesor) {
         return EditProfesorDto.builder()
                 .nombre(profesor.getNombre())
                 .apellidos(profesor.getApellidos())
@@ -14,5 +17,5 @@ public record EditProfesorDto(String nombre, String apellidos, String email, Str
                 .telefono(profesor.getTelefono())
                 .build();
 
-    }
+    }*/
 }
