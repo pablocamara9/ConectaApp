@@ -1,9 +1,9 @@
 package com.salesianostriana.dam.conecta.service;
 
 import com.salesianostriana.dam.conecta.dtos.EditDemandaDto;
+import com.salesianostriana.dam.conecta.error.DemandaNotFoundException;
 import com.salesianostriana.dam.conecta.model.Demanda;
 import com.salesianostriana.dam.conecta.repository.DemandaRepo;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class DemandaService {
     public List<Demanda> findAll() {
         List<Demanda> demandas = demandaRepo.findAll();
         if(demandas.isEmpty()) {
-            throw new EntityNotFoundException("No se encontraron demandas");
+            throw new DemandaNotFoundException("No se encontraron demandas");
         }
         return demandas;
     }
@@ -27,7 +27,7 @@ public class DemandaService {
     public Demanda findById(Long id) {
         Optional<Demanda> optDemanda = demandaRepo.findById(id);
         if(optDemanda.isEmpty()) {
-            throw new EntityNotFoundException("No se encontró la demanda con el id " + id);
+            throw new DemandaNotFoundException("No se encontró la demanda con el id " + id);
         }
         return optDemanda.get();
     }
@@ -48,7 +48,7 @@ public class DemandaService {
                     old.setEmpresa(dto.empresa());
                     return demandaRepo.save(old);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("No se encontró la demanda con el id " + id));
+                .orElseThrow(() -> new DemandaNotFoundException("No se encontró la demanda con el id " + id));
     }
 
     public void delete(Long id) {
