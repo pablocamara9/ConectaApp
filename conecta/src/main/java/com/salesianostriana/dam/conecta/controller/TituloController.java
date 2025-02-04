@@ -21,6 +21,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/titulo/")
 @RequiredArgsConstructor
@@ -118,6 +120,37 @@ public class TituloController {
     public Titulo edit(@RequestBody EditTituloDto editDto,
                          @PathVariable Long id) {
         return tituloService.editarTitulo(editDto, id );
+    }
+
+    @Operation(summary = "Obtiene todos los titulos buscados por nombre ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado los titulos con ese nombre ",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Titulo.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                              {
+                                                 "nombre" : "Desarrollador de aplicaciones ",
+                                                 "grado":"superios",
+                                                 "duracion": "40:00:00  ",
+                                                 "Familia profesional" : "informatica"
+                                            
+                                              }
+                                            }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado titulo con ese nombre "
+            )
+    })
+    @GetMapping("buscar/{nombre}")
+    public ResponseEntity<List<Titulo>> getAllPorNombre(@RequestParam String nombre) {
+        List<Titulo> titulos = tituloService.obtenerTituloPorNombre(nombre);
+        return ResponseEntity.ok(titulos);
+
     }
 
 
