@@ -16,7 +16,7 @@ import java.util.Objects;
 @Entity
 @SuperBuilder
 @Inheritance(strategy = InheritanceType.JOINED)  // Usa JOINED para la herencia
-@Table(name = "persona")
+//@MappedSuperclass
 public abstract class Persona {
 
     @Id
