@@ -1,12 +1,13 @@
 package com.salesianostriana.dam.conecta.controller;
 
+import com.salesianostriana.dam.conecta.dtos.EditDemandaDto;
 import com.salesianostriana.dam.conecta.dtos.GetDemandaDto;
 import com.salesianostriana.dam.conecta.model.Demanda;
 import com.salesianostriana.dam.conecta.service.DemandaService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +21,12 @@ public class DemandaController {
     @GetMapping
     public List<GetDemandaDto> findAll() {
         return demandaService.findAll().stream().map(GetDemandaDto::of).toList();
+    }
+
+    @PostMapping
+    public ResponseEntity<Demanda> add(@RequestBody EditDemandaDto demanda) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(demandaService.save(demanda));
     }
 
 }
