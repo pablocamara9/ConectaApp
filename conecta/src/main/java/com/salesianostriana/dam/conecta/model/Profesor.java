@@ -57,6 +57,23 @@ public class Profesor extends Persona{
         this.cursos.remove(curso);
     }
 
+    //ASOCIACION PROFESOR-CONTACTO(trabajador)
+    @OneToMany(mappedBy = "profesor", fetch = FetchType.LAZY)
+    @Builder.Default
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Contacto> contactos = new HashSet<>();
+
+    //Métodos helper(Profesor-Contacto)
+    public void addContacto(Contacto contacto) {
+        this.contactos.add(contacto);
+        contacto.setProfesor(this);
+    }
+    public void removeContacto(Contacto contacto) {
+        this.contactos.remove(contacto);
+
+    }
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;

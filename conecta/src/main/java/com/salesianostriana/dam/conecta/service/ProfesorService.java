@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.conecta.service;
 
 import com.salesianostriana.dam.conecta.dtos.EditProfesorDto;
+import com.salesianostriana.dam.conecta.model.Contacto;
 import com.salesianostriana.dam.conecta.model.Profesor;
 import com.salesianostriana.dam.conecta.repository.ProfesorRepo;
 import jakarta.persistence.EntityNotFoundException;
@@ -43,6 +44,7 @@ public class ProfesorService {
                         .apellidos(profesor.apellidos())
                         .cursos(profesor.cursos())
                         .usuario(profesor.usuario())
+                        .contactos(profesor.contacto())
                         //Demanda
                 .build());
     }
@@ -57,6 +59,11 @@ public class ProfesorService {
         profesorOp.get().setEmail(profesorDto.email());
         profesorOp.get().setApellidos(profesorDto.apellidos());
         profesorOp.get().setTelefono(profesorDto.telefono());
+        profesorOp.get().setCursos(profesorDto.cursos());
+        profesorOp.get().setUsuario(profesorDto.usuario());
+        profesorOp.get().setContactos(profesorDto.contacto());
+
+
         return repo.save(profesorOp.get());
     }
 
