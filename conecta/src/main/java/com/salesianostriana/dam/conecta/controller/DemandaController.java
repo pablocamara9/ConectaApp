@@ -2,6 +2,7 @@ package com.salesianostriana.dam.conecta.controller;
 
 import com.salesianostriana.dam.conecta.dtos.EditDemandaDto;
 import com.salesianostriana.dam.conecta.dtos.GetDemandaDto;
+import com.salesianostriana.dam.conecta.dtos.GetEmpresaDto;
 import com.salesianostriana.dam.conecta.model.Demanda;
 import com.salesianostriana.dam.conecta.service.DemandaService;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,11 @@ public class DemandaController {
     @GetMapping("{id}")
     public GetDemandaDto findById(@PathVariable Long id) {
         return GetDemandaDto.of(demandaService.findById(id));
+    }
+
+    @PutMapping("{id}")
+    public GetDemandaDto edit(@PathVariable Long id, @RequestBody EditDemandaDto demanda) {
+        return GetDemandaDto.of(demandaService.edit(demanda, id));
     }
 
 }
