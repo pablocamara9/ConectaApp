@@ -49,6 +49,7 @@ public class FamiliaProfesionalService {
         return familiaProfesionalOpt.map(old -> {
             old.setNombre(dto.nombre());
             old.setEmpresasRelacionadas(dto.empresasAsociadas());
+            old.setTitulosRelacionados(dto.titulosAsociados());
             return familiaProfesionalRepo.save(old);
         }).get();
     }

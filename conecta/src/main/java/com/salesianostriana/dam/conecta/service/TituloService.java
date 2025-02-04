@@ -26,6 +26,7 @@ public class TituloService {
                         .duracion(titulo.duracion())
                         .cursos(titulo.cursos())
                         .familiaProfesional(titulo.familiaProfesional())
+
                 .build());
     }
 
@@ -55,6 +56,8 @@ public class TituloService {
         tituloOp.get().setNombre(tituloDto.nombre());
         tituloOp.get().setDuracion(tituloDto.duracion());
         tituloOp.get().setGrado(tituloDto.grado());
+        tituloOp.get().setCursos(tituloDto.cursos());
+        tituloOp.get().setFamiliaProfesional(tituloDto.familiaProfesional());
         return repo.save(tituloOp.get());
     }
 

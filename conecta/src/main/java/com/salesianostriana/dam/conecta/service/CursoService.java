@@ -56,6 +56,8 @@ public class CursoService {
         }
         cursosOp.get().setNombre(cursdto.nombre());
         cursosOp.get().setHorasEmpresa(cursdto.horasEmpresa());
+        cursosOp.get().setTitulo(cursdto.titulo());
+        cursosOp.get().getTeachers().addAll(cursdto.profesores());
         return cursoR.save(cursosOp.get());
     }
 
