@@ -43,7 +43,8 @@ public class CursoService {
         return cursoR.save(Curso.builder()
                         .nombre(nuevo.nombre())
                         .horasEmpresa(nuevo.horasEmpresa())
-                        .titulo(nuevo.editTituloDto())
+                        .titulo(nuevo.titulo())
+                        .teachers(nuevo.profesores())
                 .build());
     }
 

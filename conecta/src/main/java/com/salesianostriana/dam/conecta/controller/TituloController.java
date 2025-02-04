@@ -41,9 +41,9 @@ public class TituloController {
                     content = @Content)
     })
     @PostMapping
-    public ResponseEntity<EditTituloDto> createTitulo(@RequestBody Titulo nuevo) {
+    public ResponseEntity<Titulo> createTitulo(@RequestBody EditTituloDto nuevo) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(EditTituloDto.of(tituloService.saveTitulo(nuevo)));
+                .body(tituloService.saveTitulo(nuevo));
     }
 
     @Operation(summary = "Obtiene todos los titulos")

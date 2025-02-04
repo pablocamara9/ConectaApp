@@ -19,8 +19,14 @@ public class TituloService {
     private final TituloRepo repo;
 
     //Guardar el título
-    public Titulo saveTitulo(Titulo titulo) {
-        return repo.save(titulo);
+    public Titulo saveTitulo(EditTituloDto titulo) {
+        return repo.save(Titulo.builder()
+                        .nombre(titulo.nombre())
+                        .grado(titulo.grado())
+                        .duracion(titulo.duracion())
+                        .cursos(titulo.cursos())
+                        .familiaProfesional(titulo.familiaProfesional())
+                .build());
     }
 
     //Buscar todos los titulos

@@ -36,6 +36,7 @@ public class FamiliaProfesionalService {
     public FamiliaProfesional save(EditFamiliaProfesionalDto dto) {
         return familiaProfesionalRepo.save(FamiliaProfesional.builder()
                 .nombre(dto.nombre())
+                .titulosRelacionados(dto.titulosAsociados())
                 .empresasRelacionadas(dto.empresasAsociadas())
                 .build());
     }
