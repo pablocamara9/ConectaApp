@@ -4,9 +4,11 @@ package com.salesianostriana.dam.conecta.util;
 import com.salesianostriana.dam.conecta.model.Profesor;
 import com.salesianostriana.dam.conecta.repository.CursoRepo;
 import com.salesianostriana.dam.conecta.repository.ProfesorRepo;*/
+import com.salesianostriana.dam.conecta.model.Demanda;
 import com.salesianostriana.dam.conecta.model.Empresa;
 import com.salesianostriana.dam.conecta.model.FamiliaProfesional;
 import com.salesianostriana.dam.conecta.model.Trabajador;
+import com.salesianostriana.dam.conecta.repository.DemandaRepo;
 import com.salesianostriana.dam.conecta.repository.EmpresaRepo;
 import com.salesianostriana.dam.conecta.repository.FamiliaProfesionalRepo;
 import com.salesianostriana.dam.conecta.repository.TrabajadorRepo;
@@ -25,6 +27,7 @@ public class MainDeMentira {
     private final TrabajadorRepo trabajadorRepo;
     private final EmpresaRepo empresaRepo;
     private final FamiliaProfesionalRepo familiaProfesionalRepo;
+    private final DemandaRepo demandaRepo;
 
     /*private final ProfesorRepo profesorRepository;
     private final CursoRepo cursoRepository;*/
@@ -75,11 +78,22 @@ public class MainDeMentira {
                 .empresasRelacionadas(empresaRepo.findAll())
                 .build();
 
+        Demanda d1 = Demanda.builder()
+                .cantidadAlumnos(30)
+                .requisitos("Expericencia mínima en Java")
+                .empresa(e1)
+                .build();
+
+        demandaRepo.save(d1);
+
+        //e1.addDemanda(d1);
+
         familiaProfesionalRepo.save(fp1);
         familiaProfesionalRepo.save(fp2);
 
         trabajadorRepo.save(t1);
         trabajadorRepo.save(t2);
+
         empresaRepo.save(e1);
 
         trabajadorRepo.findAll().forEach(System.out::println);
