@@ -1,33 +1,38 @@
 package com.salesianostriana.dam.conecta.util;
 
-/*import com.salesianostriana.dam.conecta.model.Curso;
+
+import com.salesianostriana.dam.conecta.model.Curso;
 import com.salesianostriana.dam.conecta.model.Profesor;
 import com.salesianostriana.dam.conecta.repository.CursoRepo;
-import com.salesianostriana.dam.conecta.repository.ProfesorRepo;*/
+import com.salesianostriana.dam.conecta.repository.ProfesorRepo;
+
 import com.salesianostriana.dam.conecta.model.Empresa;
 import com.salesianostriana.dam.conecta.model.FamiliaProfesional;
 import com.salesianostriana.dam.conecta.model.Trabajador;
 import com.salesianostriana.dam.conecta.repository.EmpresaRepo;
 import com.salesianostriana.dam.conecta.repository.FamiliaProfesionalRepo;
 import com.salesianostriana.dam.conecta.repository.TrabajadorRepo;
+
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 @Component
 @RequiredArgsConstructor
 public class MainDeMentira {
 
+    private final ProfesorRepo profesorRepository;
+    private final CursoRepo cursoRepository;
+
     private final TrabajadorRepo trabajadorRepo;
     private final EmpresaRepo empresaRepo;
     private final FamiliaProfesionalRepo familiaProfesionalRepo;
-
-    /*private final ProfesorRepo profesorRepository;
-    private final CursoRepo cursoRepository;*/
 
     @PostConstruct
     public void run() {
@@ -86,7 +91,8 @@ public class MainDeMentira {
         empresaRepo.findAll().forEach(System.out::println);
 
 
-        /*Curso curso1 = new Curso();
+        Curso curso1 = new Curso();
+
         curso1.setNombre("Java Básico");
         curso1.setHorasEmpresa(40);
 
@@ -131,6 +137,8 @@ public class MainDeMentira {
         cursoRepository.findAll().forEach(System.out::println);
 
         System.out.println(profesorRepository.infoBasicaProfesoressPorCurso("Java Básico"));
-        System.out.println(profesorRepository.profesoresConCurso("Juan"));*/
+
+        System.out.println(profesorRepository.profesoresConCurso("Juan"));
     }
 }
+
