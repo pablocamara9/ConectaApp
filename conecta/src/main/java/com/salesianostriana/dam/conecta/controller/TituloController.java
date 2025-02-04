@@ -88,6 +88,37 @@ public class TituloController {
     public Titulo getById(@PathVariable Long id) {
         return tituloService.findTituloById(id);
     }
+    @Operation(summary = "Elimina un titulo por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "titulo eliminado con éxito",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el titulo con el ID proporcionado",
+                    content = @Content)
+    })
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        tituloService.deleteTitulo(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
+    @Operation(summary = "Edita un titulo existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Titulo actualizada con éxito",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Titulo.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el titulo  con el ID proporcionado",
+                    content = @Content)
+    })
+    @PutMapping("{id}")
+    public Titulo edit(@RequestBody EditTituloDto editDto,
+                         @PathVariable Long id) {
+        return tituloService.editarTitulo(editDto, id );
+    }
 
 
 }
