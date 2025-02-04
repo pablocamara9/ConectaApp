@@ -3,6 +3,8 @@ package com.salesianostriana.dam.conecta.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,6 +16,9 @@ public class Contacto {
     @EmbeddedId
     private ContactoPK contactoPK = new ContactoPK();
 
+    private Date fecha;
+    private String canal;
+    private String descripcion;
 
     public Contacto(Profesor p , Trabajador t){
         this.profesor = p;
