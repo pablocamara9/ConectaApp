@@ -38,9 +38,9 @@ public class ProfesorController {
         content = @Content)
     })
 @PostMapping
-    public ResponseEntity<EditProfesorDto> createProfesor(@RequestBody Profesor nuevo) {
+    public ResponseEntity<Profesor> createProfesor(@RequestBody EditProfesorDto nuevo) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(EditProfesorDto.of(profesorService.saveProfesor(nuevo)));
+                .body(profesorService.saveProfesor(nuevo));
     }
 
 

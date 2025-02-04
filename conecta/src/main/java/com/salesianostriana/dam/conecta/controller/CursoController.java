@@ -41,10 +41,9 @@ public class CursoController{
                     content = @Content)
     })
     @PostMapping
-    public ResponseEntity<EditCursoDto> createCurso(@RequestBody Curso nuevo) {
+    public ResponseEntity<Curso> createCurso(@RequestBody EditCursoDto nuevo) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(EditCursoDto
-                        .of(cursoService.saveCurso(nuevo)));
+                .body(cursoService.saveCurso(nuevo));
     }
 
 

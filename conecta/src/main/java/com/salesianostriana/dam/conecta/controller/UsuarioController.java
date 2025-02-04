@@ -40,9 +40,9 @@ public class UsuarioController {
                     content = @Content)
     })
     @PostMapping
-    public ResponseEntity<EditUsuarioDto> createUsuario(@RequestBody Usuario nuevo) {
+    public ResponseEntity<Usuario> createUsuario(@RequestBody EditUsuarioDto nuevo) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(EditUsuarioDto.of(usuarioService.saveUsuario(nuevo)));
+                .body(usuarioService.saveUsuario(nuevo));
     }
 
     @Operation(summary = "Obtiene todos los usuarios")

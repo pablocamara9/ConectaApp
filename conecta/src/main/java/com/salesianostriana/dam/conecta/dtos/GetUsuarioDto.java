@@ -8,7 +8,7 @@ import lombok.Builder;
 public record GetUsuarioDto(String username,
                             String password,
                             String role,
-                            Profesor profesor)
+                            GetProfesorDto profesor)
 
                 {
                     public static GetUsuarioDto of(Usuario usuario) {
@@ -16,7 +16,7 @@ public record GetUsuarioDto(String username,
                                 .username(usuario.getUsername())
                                 .password(usuario.getPassword())
                                 .role(usuario.getRole())
-                                .profesor(usuario.getProfesor())
+                                .profesor(GetProfesorDto.of(usuario.getProfesor()))
                                 .build();
                     }
 }

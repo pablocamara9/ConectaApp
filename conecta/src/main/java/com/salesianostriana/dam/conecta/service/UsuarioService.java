@@ -19,8 +19,12 @@ public class UsuarioService {
     private final Usuariorepo usuariorepo;
 
     //Guardamos el usuario
-    public Usuario saveUsuario(Usuario usuario) {
-        return usuariorepo.save(usuario);
+    public Usuario saveUsuario(EditUsuarioDto usuario) {
+        return usuariorepo.save(Usuario.builder()
+                        .username(usuario.username())
+                        .role(usuario.role())
+                        .profesor(usuario.profesor())
+                .build());
     }
 
     //Buscar todos los usuarios

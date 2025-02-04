@@ -1,6 +1,8 @@
 package com.salesianostriana.dam.conecta.service;
 
 import com.salesianostriana.dam.conecta.dtos.EditCursoDto;
+import com.salesianostriana.dam.conecta.dtos.EditTituloDto;
+import com.salesianostriana.dam.conecta.dtos.GetTituloDto;
 import com.salesianostriana.dam.conecta.model.Curso;
 import com.salesianostriana.dam.conecta.repository.CursoRepo;
 import com.salesianostriana.dam.conecta.repository.ProfesorRepo;
@@ -37,8 +39,13 @@ public class CursoService {
     }
 
     //Guardamos el curso usando
-    public Curso saveCurso(Curso nuevo) {
-        return cursoR.save(nuevo);
+    public Curso saveCurso(EditCursoDto nuevo) {
+        return cursoR.save(Curso.builder()
+                        .nombre(nuevo.nombre())
+                        .horasEmpresa(nuevo.horasEmpresa())
+                        .titulo(nuevo.titulo())
+                        .teachers(nuevo.profesores())
+                .build());
     }
 
     //Editar curso usando el dto
@@ -49,6 +56,8 @@ public class CursoService {
         }
         cursosOp.get().setNombre(cursdto.nombre());
         cursosOp.get().setHorasEmpresa(cursdto.horasEmpresa());
+        cursosOp.get().setTitulo(cursdto.titulo());
+        cursosOp.get().getTeachers().addAll(cursdto.profesores());
         return cursoR.save(cursosOp.get());
     }
 

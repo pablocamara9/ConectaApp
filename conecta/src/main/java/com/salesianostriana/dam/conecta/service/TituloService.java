@@ -19,9 +19,17 @@ public class TituloService {
     private final TituloRepo repo;
 
     //Guardar el título
-    public Titulo saveTitulo(Titulo titulo) {
-        return repo.save(titulo);
+    public Titulo saveTitulo(EditTituloDto titulo) {
+        return repo.save(Titulo.builder()
+                        .nombre(titulo.nombre())
+                        .grado(titulo.grado())
+                        .duracion(titulo.duracion())
+                        .cursos(titulo.cursos())
+                        .familiaProfesional(titulo.familiaProfesional())
+
+                .build());
     }
+
     //Buscar todos los titulos
     public List<Titulo> findallTitulos() {
         List<Titulo> titulos = repo.findAll();
@@ -48,14 +56,19 @@ public class TituloService {
         tituloOp.get().setNombre(tituloDto.nombre());
         tituloOp.get().setDuracion(tituloDto.duracion());
         tituloOp.get().setGrado(tituloDto.grado());
+        tituloOp.get().setCursos(tituloDto.cursos());
+        tituloOp.get().setFamiliaProfesional(tituloDto.familiaProfesional());
         return repo.save(tituloOp.get());
     }
 
     //Eliminar titulo
     public void deleteTitulo(Long id) {
-
         repo.deleteById(id);
     }
 
 
+    //Buscar títulos por su nombre
+    public List<Titulo> obtenerTituloPorNombre(String nombre) {
+        return repo.buscarTitulosPorNombre(nombre);
+    }
 }
