@@ -22,6 +22,7 @@ public class TituloService {
     public Titulo saveTitulo(Titulo titulo) {
         return repo.save(titulo);
     }
+
     //Buscar todos los titulos
     public List<Titulo> findallTitulos() {
         List<Titulo> titulos = repo.findAll();

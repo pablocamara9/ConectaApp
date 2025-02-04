@@ -24,6 +24,12 @@ public class Titulo {
     private Date duracion;
     private String grado;
 
+    //Asociacion TITULO-FP
+    @ManyToOne
+    @JoinColumn(name = "familia_profesional_id")
+    private FamiliaProfesional familiaProfesional;
+
+
     //Asociacion CURSO-TITULO
     @OneToMany(mappedBy = "titulo", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude

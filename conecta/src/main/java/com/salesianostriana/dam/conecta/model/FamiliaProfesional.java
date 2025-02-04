@@ -23,6 +23,24 @@ public class FamiliaProfesional {
 
     private String nombre;
 
+    //Asociación FP-Titulo
+    @OneToMany(mappedBy = "familia_profesional", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    @Builder.Default
+    @ToString.Exclude
+    List<Titulo> titulosRelacionados = new ArrayList<>();
+
+    //Métodos helpers de la asociación
+    public void addTitulo(Titulo titulo) {
+        titulo.setFamiliaProfesional(this);
+        titulosRelacionados.add(titulo);
+    }
+    public void removeTitulo(Titulo titulo) {
+        titulosRelacionados.remove(titulo);
+        titulo.setFamiliaProfesional(null);
+    }
+
+    //Asociación FP-Empresa
     @ManyToMany(mappedBy = "familiasProfesionales", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
