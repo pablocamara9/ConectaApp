@@ -1,7 +1,10 @@
 package com.salesianostriana.dam.conecta.dtos;
 
+import com.salesianostriana.dam.conecta.model.Contacto;
 import com.salesianostriana.dam.conecta.model.Empresa;
 import com.salesianostriana.dam.conecta.model.Trabajador;
+
+import java.util.Set;
 
 public record EditTrabajadorDto(
         String nombre,
@@ -10,6 +13,7 @@ public record EditTrabajadorDto(
         String telefono,
         String puesto,
         String area,
-        Empresa empresa
+        Empresa empresa,
+        Set<Contacto> contacto
     ) {
 }

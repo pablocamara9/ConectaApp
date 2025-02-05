@@ -24,7 +24,7 @@ public class FamiliaProfesional {
     private String nombre;
 
     //Asociación FP-Titulo
-    @OneToMany(mappedBy = "familia_profesional", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "familiaProfesional", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @Builder.Default
     @ToString.Exclude

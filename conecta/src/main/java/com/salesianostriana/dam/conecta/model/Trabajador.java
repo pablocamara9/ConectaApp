@@ -1,9 +1,14 @@
 package com.salesianostriana.dam.conecta.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -27,8 +32,26 @@ public class Trabajador extends Persona {
     }
 
     public void removeFromEmpresa(Empresa e) {
-        e.getTrabajadores().remove(this);
-        this.empresa = null;
+        this.empresa.getTrabajadores().remove(e);
+        e.setTrabajadores(null);
+    }
+
+    //Asociación TRABAJADOR-CONTACTO(profesor)
+    //ASOCIACION PROFESOR-CONTACTO(trabajador)
+    @OneToMany(mappedBy = "trabajador", fetch = FetchType.LAZY)
+    @Builder.Default
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Contacto> contactos = new HashSet<>();
+
+    //Métodos helper(trabajador-Contacto)
+    public void addContacto(Contacto contacto) {
+        this.contactos.add(contacto);
+        contacto.setTrabajador(this);
+    }
+    public void removeContacto(Contacto contacto) {
+        this.contactos.remove(contacto);
+
     }
 
 }

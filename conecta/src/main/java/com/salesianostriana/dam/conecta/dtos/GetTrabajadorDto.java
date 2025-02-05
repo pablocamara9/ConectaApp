@@ -1,6 +1,5 @@
 package com.salesianostriana.dam.conecta.dtos;
 
-
 import com.salesianostriana.dam.conecta.model.Trabajador;
 
 public record GetTrabajadorDto(String nombre, String apellidos, String email, String telefono, String puesto, String area) {
