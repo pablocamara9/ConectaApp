@@ -24,7 +24,7 @@ public class Empresa {
     private double coordenadas;
     private String nombre;
 
-    @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

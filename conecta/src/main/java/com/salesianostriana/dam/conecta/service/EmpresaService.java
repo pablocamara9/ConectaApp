@@ -3,9 +3,7 @@ package com.salesianostriana.dam.conecta.service;
 import com.salesianostriana.dam.conecta.dtos.EditEmpresaDto;
 import com.salesianostriana.dam.conecta.error.EmpresaNotFoundException;
 import com.salesianostriana.dam.conecta.model.Empresa;
-import com.salesianostriana.dam.conecta.model.Empresa;
 import com.salesianostriana.dam.conecta.repository.EmpresaRepo;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +55,13 @@ public class EmpresaService {
     }
 
     public void delete(Long id) {
+        Optional<Empresa> empresaOpt = empresaRepo.findById(id);
+        if(empresaOpt.isEmpty()) {
+            throw new EmpresaNotFoundException("No se encontró la empresa con el id " + id);
+        }
+        Empresa e = empresaOpt.get();
+        e.getTrabajadores().forEach(trabajador -> trabajador.removeFromEmpresa(e));
+
         empresaRepo.deleteById(id);
     }
 

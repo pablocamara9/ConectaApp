@@ -32,8 +32,8 @@ public class Trabajador extends Persona {
     }
 
     public void removeFromEmpresa(Empresa e) {
-        e.getTrabajadores().remove(this);
-        this.empresa = null;
+        this.empresa.getTrabajadores().remove(e);
+        e.setTrabajadores(null);
     }
 
     //Asociación TRABAJADOR-CONTACTO(profesor)
