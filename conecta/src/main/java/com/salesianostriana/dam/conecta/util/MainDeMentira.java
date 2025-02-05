@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 
@@ -56,7 +55,7 @@ public class MainDeMentira {
                 .area("-")
                 .build();
 
-        List<Trabajador> trabajadores = new ArrayList<Trabajador>();
+        List<Trabajador> trabajadores = new ArrayList<>();
 
         Empresa e1 = Empresa.builder()
                 .cif("B854128A")
@@ -148,7 +147,7 @@ public class MainDeMentira {
         profesorRepository.findAll().forEach(System.out::println);
         cursoRepository.findAll().forEach(System.out::println);
 
-        System.out.println(profesorRepository.infoBasicaProfesoressPorCurso("Java Básico"));
+        //System.out.println(profesorRepository.infoBasicaProfesoressPorCurso("Java Básico"));
 
         System.out.println(profesorRepository.profesoresConCurso("Juan"));
     }
