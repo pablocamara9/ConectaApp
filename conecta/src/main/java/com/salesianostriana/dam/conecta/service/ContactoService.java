@@ -16,6 +16,7 @@ public class ContactoService
 
     private final TrabajadorService trabajadorService;
     private final ProfesorService profesorService;
+    private final ContactoRepo contactoRepo;
 
     public Trabajador contactoTrabajador(Trabajador t, Profesor profesor) {
 
@@ -28,5 +29,6 @@ public class ContactoService
 
         return t;
     }
+    //Guardar Contacto 
 
 }

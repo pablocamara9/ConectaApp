@@ -32,11 +32,11 @@ public class Contacto {
 
     //Métodos helpers
     public void addProfesor(Profesor p){
-        p.getContacto().add(this);
+        p.getContactos().add(this);
         this.profesor = p;
     }
     public void removeProfesor(Profesor p){
-        p.getContacto().remove(this);
+        p.getContactos().remove(this);
     }
 
     //Asociación CONTACTO-TRABAJADOR
@@ -46,11 +46,11 @@ public class Contacto {
     private Trabajador trabajador;
 
     public void addTrabajador(Trabajador t){
-        t.getContacto().add(this);
+        t.getContactos().add(this);
         this.trabajador = t;
     }
     public void removeTrabajador(Trabajador t){
-        t.getContacto().remove(this);
+        t.getContactos().remove(this);
     }
 
 }
