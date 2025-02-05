@@ -4,11 +4,12 @@ package com.salesianostriana.dam.conecta.util;
 import com.salesianostriana.dam.conecta.model.Curso;
 import com.salesianostriana.dam.conecta.model.Profesor;
 import com.salesianostriana.dam.conecta.repository.CursoRepo;
+import com.salesianostriana.dam.conecta.model.Demanda;
 import com.salesianostriana.dam.conecta.repository.ProfesorRepo;
-
 import com.salesianostriana.dam.conecta.model.Empresa;
 import com.salesianostriana.dam.conecta.model.FamiliaProfesional;
 import com.salesianostriana.dam.conecta.model.Trabajador;
+import com.salesianostriana.dam.conecta.repository.DemandaRepo;
 import com.salesianostriana.dam.conecta.repository.EmpresaRepo;
 import com.salesianostriana.dam.conecta.repository.FamiliaProfesionalRepo;
 import com.salesianostriana.dam.conecta.repository.TrabajadorRepo;
@@ -17,10 +18,8 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 
 @Component
@@ -33,6 +32,7 @@ public class MainDeMentira {
     private final TrabajadorRepo trabajadorRepo;
     private final EmpresaRepo empresaRepo;
     private final FamiliaProfesionalRepo familiaProfesionalRepo;
+    private final DemandaRepo demandaRepo;
 
     @PostConstruct
     public void run() {
@@ -55,7 +55,7 @@ public class MainDeMentira {
                 .area("-")
                 .build();
 
-        Set<Trabajador> trabajadores = new HashSet<Trabajador>();
+        List<Trabajador> trabajadores = new ArrayList<>();
 
         Empresa e1 = Empresa.builder()
                 .cif("B854128A")
@@ -80,11 +80,22 @@ public class MainDeMentira {
                 .empresasRelacionadas(empresaRepo.findAll())
                 .build();
 
+        Demanda d1 = Demanda.builder()
+                .cantidadAlumnos(30)
+                .requisitos("Expericencia mínima en Java")
+                .empresa(e1)
+                .build();
+
+        demandaRepo.save(d1);
+
+        //e1.addDemanda(d1);
+
         familiaProfesionalRepo.save(fp1);
         familiaProfesionalRepo.save(fp2);
 
         trabajadorRepo.save(t1);
         trabajadorRepo.save(t2);
+
         empresaRepo.save(e1);
 
         trabajadorRepo.findAll().forEach(System.out::println);
@@ -136,7 +147,7 @@ public class MainDeMentira {
         profesorRepository.findAll().forEach(System.out::println);
         cursoRepository.findAll().forEach(System.out::println);
 
-        System.out.println(profesorRepository.infoBasicaProfesoressPorCurso("Java Básico"));
+        //System.out.println(profesorRepository.infoBasicaProfesoressPorCurso("Java Básico"));
 
         System.out.println(profesorRepository.profesoresConCurso("Juan"));
     }

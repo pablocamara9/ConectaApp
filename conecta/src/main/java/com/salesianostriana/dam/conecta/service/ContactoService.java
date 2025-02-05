@@ -1,6 +1,6 @@
 package com.salesianostriana.dam.conecta.service;
 
-import com.salesianostriana.dam.conecta.base.BaseServiceImpl;
+import com.salesianostriana.dam.conecta.service.base.BaseServiceImpl;
 import com.salesianostriana.dam.conecta.dtos.EditContactoDto;
 import com.salesianostriana.dam.conecta.model.Contacto;
 import com.salesianostriana.dam.conecta.model.ContactoPK;
