@@ -28,7 +28,7 @@ public class Empresa {
     @Builder.Default
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Trabajador> trabajadores = new HashSet<>();
+    private List<Trabajador> trabajadores = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -41,6 +41,13 @@ public class Empresa {
     @Builder.Default
     private List<FamiliaProfesional> familiasProfesionales = new ArrayList<>();
 
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER)
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Demanda> demandas = new ArrayList<>();
+
+    // Empresa - FamiliaProfesional
     public void addFamiliaProfesional(FamiliaProfesional fp) {
         familiasProfesionales.add(fp);
         fp.getEmpresasRelacionadas().add(this);
@@ -49,6 +56,17 @@ public class Empresa {
     public void removeFamiliaProfesional(FamiliaProfesional fp) {
         fp.getEmpresasRelacionadas().remove(this);
         familiasProfesionales.remove(fp);
+    }
+
+    // Empresa - Demanda
+    public void addDemanda(Demanda d) {
+        d.setEmpresa(this);
+        demandas.add(d);
+    }
+
+    public void removeDemanda(Demanda d) {
+        demandas.remove(d);
+        d.setEmpresa(null);
     }
 
     @Override

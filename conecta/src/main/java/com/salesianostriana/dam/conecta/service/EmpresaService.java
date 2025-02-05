@@ -27,11 +27,11 @@ public class EmpresaService {
     }
 
     public Empresa findById(Long id) {
-        Optional<Empresa> EmpresaOpt = empresaRepo.findById(id);
-        if(EmpresaOpt.isEmpty()) {
+        Optional<Empresa> empresaOpt = empresaRepo.findById(id);
+        if(empresaOpt.isEmpty()) {
             throw new EmpresaNotFoundException("No se encontró la empresa con el id " + id);
         }
-        return EmpresaOpt.get();
+        return empresaOpt.get();
     }
 
     public Empresa save(EditEmpresaDto dto) {
