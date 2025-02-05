@@ -24,13 +24,13 @@ public class Empresa {
     private double coordenadas;
     private String nombre;
 
-    @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Trabajador> trabajadores = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "empresa_familias_profesionales",
             joinColumns = @JoinColumn(name = "empresa_id"),

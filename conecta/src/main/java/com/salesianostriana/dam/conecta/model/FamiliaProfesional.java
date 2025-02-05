@@ -24,7 +24,11 @@ public class FamiliaProfesional {
     private String nombre;
 
     //Asociación FP-Titulo
+<<<<<<< HEAD
+    @OneToMany(mappedBy = "familia_profesional", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+=======
     @OneToMany(mappedBy = "familiaProfesional", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+>>>>>>> 238bd34aed828dabaffdd3f176346ef89345fbf0
     @EqualsAndHashCode.Exclude
     @Builder.Default
     @ToString.Exclude
@@ -41,7 +45,7 @@ public class FamiliaProfesional {
     }
 
     //Asociación FP-Empresa
-    @ManyToMany(mappedBy = "familiasProfesionales", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "familiasProfesionales", fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @Builder.Default
