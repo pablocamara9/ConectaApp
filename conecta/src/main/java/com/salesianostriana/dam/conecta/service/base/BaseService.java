@@ -1,9 +1,9 @@
-package com.salesianostriana.dam.conecta.base;
+package com.salesianostriana.dam.conecta.service.base;
 
 import java.util.List;
 import java.util.Optional;
 
-public class BaseService<T, ID> {
+public interface BaseService<T, ID> {
 
     List<T> findAll();
 
