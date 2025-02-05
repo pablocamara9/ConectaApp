@@ -20,7 +20,7 @@ import java.util.Objects;
 public abstract class Persona {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     private String nombre;
