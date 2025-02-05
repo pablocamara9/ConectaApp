@@ -4,49 +4,50 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class FamiliaProfesional {
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name="curso")
+public class Curso {
 
+    //Atributos de la clase
     @Id
     @GeneratedValue
     private Long id;
 
     private String nombre;
+    private int horasEmpresa;
 
-    //Asociación FP-Titulo
-    @OneToMany(mappedBy = "familia_profesional", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @EqualsAndHashCode.Exclude
+
+    //Asociación CURSOS-PROFESOR
+    @ManyToMany(mappedBy = "cursos")
     @Builder.Default
     @ToString.Exclude
-    List<Titulo> titulosRelacionados = new ArrayList<>();
-
-    //Métodos helpers de la asociación
-    public void addTitulo(Titulo titulo) {
-        titulo.setFamiliaProfesional(this);
-        titulosRelacionados.add(titulo);
-    }
-    public void removeTitulo(Titulo titulo) {
-        titulosRelacionados.remove(titulo);
-        titulo.setFamiliaProfesional(null);
-    }
-
-    //Asociación FP-Empresa
-    @ManyToMany(mappedBy = "familiasProfesionales", fetch = FetchType.EAGER)
+    @Setter(AccessLevel.NONE)
     @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @Builder.Default
-    private List<Empresa> empresasRelacionadas = new ArrayList<>();
+    private Set<Profesor> teachers = new HashSet<>();
 
+
+    //Asocación CURSO_TIRULO
+    @ManyToOne
+    @JoinColumn(name = "titulo_id")
+    private Titulo titulo;
+
+    //Métodos helpers
+    public void addToTitulo(Titulo t) {
+        t.getCursos().add(this);
+        this.titulo = t;
+    }
+    public void removeFromTitulo(Titulo t) {
+        t.getCursos().remove(this);
+    }
+    //Equals & hasCode
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
@@ -54,8 +55,8 @@ public class FamiliaProfesional {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        FamiliaProfesional that = (FamiliaProfesional) o;
-        return getId() != null && Objects.equals(getId(), that.getId());
+        Curso curso = (Curso) o;
+        return getId() != null && Objects.equals(getId(), curso.getId());
     }
 
     @Override

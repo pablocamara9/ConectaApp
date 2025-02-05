@@ -4,6 +4,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+#Ignorar archivos de base de datos
+*.db
+C:\Users\pepes\Desktop\ConectaApp\conecta\db
+
 ### STS ###
 .apt_generated
 .classpath
