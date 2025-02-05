@@ -42,6 +42,7 @@ public class TrabajadorService {
                 .puesto(dto.puesto())
                 .area(dto.area())
                 .empresa(dto.empresa())
+                .contactos(dto.contacto())
                 .build());
     }
 
@@ -57,6 +58,9 @@ public class TrabajadorService {
                     old.setTelefono(dto.telefono());
                     old.setPuesto(dto.puesto());
                     old.setArea(dto.area());
+                    old.setEmpresa(dto.empresa());
+                    old.setContactos(dto.contacto());
+
                     return trabajadorRepo.save(old);
                 }).get();
                 //.orElseThrow(() -> new EntityNotFoundException("No se encontró el trabajador con el id " + id));
