@@ -16,9 +16,8 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -53,7 +52,7 @@ public class MainDeMentira {
                 .area("-")
                 .build();
 
-        Set<Trabajador> trabajadores = new HashSet<Trabajador>();
+        List<Trabajador> trabajadores = new ArrayList<Trabajador>();
 
         Empresa e1 = Empresa.builder()
                 .cif("B854128A")

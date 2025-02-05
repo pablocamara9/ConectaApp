@@ -1,12 +1,10 @@
 package com.salesianostriana.dam.conecta.dtos;
 
 import com.salesianostriana.dam.conecta.model.Empresa;
-import com.salesianostriana.dam.conecta.model.Trabajador;
 
 import java.util.List;
-import java.util.Set;
 
-public record GetEmpresaDto(String cif, String direccion, double coordenadas, String nombre, Set<Trabajador> trabajadores) {
+public record GetEmpresaDto(String cif, String direccion, double coordenadas, String nombre, List<GetTrabajadorDto> trabajadores) {
 
     public static GetEmpresaDto of(Empresa dto) {
         return new GetEmpresaDto(
@@ -14,7 +12,7 @@ public record GetEmpresaDto(String cif, String direccion, double coordenadas, St
                 dto.getDireccion(),
                 dto.getCoordenadas(),
                 dto.getNombre(),
-                dto.getTrabajadores()
+                dto.getTrabajadores().stream().map(GetTrabajadorDto::of).toList()
         );
     }
 

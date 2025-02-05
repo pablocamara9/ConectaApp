@@ -1,10 +1,7 @@
 package com.salesianostriana.dam.conecta.controller;
 
-import com.salesianostriana.dam.conecta.dtos.EditDemandaDto;
 import com.salesianostriana.dam.conecta.dtos.GetDemandaDto;
-import com.salesianostriana.dam.conecta.dtos.GetEmpresaDto;
 import com.salesianostriana.dam.conecta.model.Demanda;
-import com.salesianostriana.dam.conecta.model.Empresa;
 import com.salesianostriana.dam.conecta.service.DemandaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -34,7 +31,7 @@ public class DemandaController {
             @ApiResponse(responseCode = "200",
                     description = "Se han encontrado las demandas",
                     content = { @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Demanda.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = GetDemandaDto.class)),
                             examples = {@ExampleObject(
                                     value = """
                                             {
@@ -80,10 +77,10 @@ public class DemandaController {
                     description = "Datos inválidos para crear la demanda",
                     content = @Content)
     })
-    @PostMapping
-    public ResponseEntity<Demanda> add(@RequestBody EditDemandaDto demanda) {
+    @PostMapping("empresa/{idEmpresa}")
+    public ResponseEntity<Demanda> add(@RequestBody Demanda demanda, @PathVariable Long idEmpresa) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(demandaService.save(demanda));
+                .body(demandaService.save(demanda, idEmpresa));
     }
 
     @Operation(summary = "Obtiene una demanda por su ID")
@@ -91,7 +88,7 @@ public class DemandaController {
             @ApiResponse(responseCode = "200",
                     description = "Se ha encontrado la demanda",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Demanda.class))}),
+                            schema = @Schema(implementation = GetDemandaDto.class))}),
             @ApiResponse(responseCode = "404",
                     description = "No se encontró la demanda con el id (id proporcionado)",
                     content = @Content)
@@ -106,14 +103,14 @@ public class DemandaController {
             @ApiResponse(responseCode = "200",
                     description = "Demanda actualizada con éxito",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Demanda.class))}),
+                            schema = @Schema(implementation = GetDemandaDto.class))}),
             @ApiResponse(responseCode = "404",
                     description = "No se encontró la demanda con el id (id proporcionado)",
                     content = @Content)
     })
-    @PutMapping("{id}")
-    public GetDemandaDto edit(@PathVariable Long id, @RequestBody EditDemandaDto demanda) {
-        return GetDemandaDto.of(demandaService.edit(demanda, id));
+    @PutMapping("{id}/empresa/{idEmpresa}")
+    public GetDemandaDto edit(@PathVariable Long id, @RequestBody Demanda demanda, @PathVariable Long idEmpresa) {
+        return GetDemandaDto.of(demandaService.edit(demanda, id, idEmpresa));
     }
 
     @Operation(summary = "Elimina una demanda buscándola por su ID")

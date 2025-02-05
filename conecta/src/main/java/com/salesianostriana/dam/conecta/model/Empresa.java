@@ -28,7 +28,7 @@ public class Empresa {
     @Builder.Default
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Trabajador> trabajadores = new HashSet<>();
+    private List<Trabajador> trabajadores = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

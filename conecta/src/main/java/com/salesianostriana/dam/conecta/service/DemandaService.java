@@ -1,6 +1,6 @@
 package com.salesianostriana.dam.conecta.service;
 
-import com.salesianostriana.dam.conecta.dtos.EditDemandaDto;
+
 import com.salesianostriana.dam.conecta.error.DemandaNotFoundException;
 import com.salesianostriana.dam.conecta.model.Demanda;
 import com.salesianostriana.dam.conecta.repository.DemandaRepo;
@@ -15,6 +15,7 @@ import java.util.Optional;
 public class DemandaService {
 
     private final DemandaRepo demandaRepo;
+    private final EmpresaService empresaService;
 
     public List<Demanda> findAll() {
         List<Demanda> demandas = demandaRepo.findAll();
@@ -32,20 +33,17 @@ public class DemandaService {
         return optDemanda.get();
     }
 
-    public Demanda save(EditDemandaDto dto) {
-        return demandaRepo.save(Demanda.builder()
-                .cantidadAlumnos(dto.cantidadAlumnos())
-                .requisitos(dto.requisitos())
-                .empresa(dto.empresa())
-                .build());
+    public Demanda save(Demanda demanda, Long empresaId) {
+        demanda.setEmpresa(empresaService.findById(empresaId));
+        return demandaRepo.save(demanda);
     }
 
-    public Demanda edit(EditDemandaDto dto, Long id) {
+    public Demanda edit(Demanda demanda, Long id, Long empresaId) {
         return demandaRepo.findById(id)
                 .map(old -> {
-                    old.setCantidadAlumnos(dto.cantidadAlumnos());
-                    old.setRequisitos(dto.requisitos());
-                    old.setEmpresa(dto.empresa());
+                    old.setCantidadAlumnos(demanda.getCantidadAlumnos());
+                    old.setRequisitos(demanda.getRequisitos());
+                    old.setEmpresa(empresaService.findById(empresaId));
                     return demandaRepo.save(old);
                 })
                 .orElseThrow(() -> new DemandaNotFoundException("No se encontró la demanda con el id " + id));
