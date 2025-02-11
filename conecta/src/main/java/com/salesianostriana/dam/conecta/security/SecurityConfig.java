@@ -7,6 +7,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
@@ -14,18 +18,18 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public Usuario userDetailsService() {
-        Usuario user = Usuario.builder().username("user")
+    public UserDetailsService userDetailsService() {
+        UserDetails user = User.withUsername("user")
                 .password("{noop}1234")
-                .role("USER")
+                .roles("USER")
                 .build();
 
-        Usuario admin = Usuario.builder().username("admin")
+        UserDetails admin = User.withUsername("admin")
                 .password("{noop}admin")
-                .role("ADMIN")
+                .roles("ADMIN")
                 .build();
 
-        return admin;
+        return new InMemoryUserDetailsManager(user, admin);
     }
 
 
@@ -36,8 +40,8 @@ public class SecurityConfig {
 
         // Control de acceso
         http.authorizeHttpRequests((auth) -> auth
-                .requestMatchers(HttpMethod.POST, "/task/").hasRole("ADMIN")
-                .requestMatchers("/task/**").authenticated());
+                .requestMatchers(HttpMethod.POST, "/empresa/").hasRole("ADMIN")
+                .requestMatchers("/empresa/**").authenticated());
 
         return http.build();
     }
